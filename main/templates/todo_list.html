@@ -34,7 +34,6 @@
                 <input type="checkbox" onchange="toggleTaskComplete({{ task.id }})" {% if task.is_completed %}checked{% endif %}>
                 Complete
             </label>
-            <a href="{% url 'edit_task' task.id %}">Edit</a>
             <a href="{% url 'delete_task' task.id %}">Delete</a>
         </li>
     {% empty %}
