@@ -3,6 +3,15 @@
 {% block content %}
 <h2>Friend Requests</h2>
 
+<!-- Form to send a friend request -->
+<h3>Send a Friend Request</h3>
+<form method="post" action="{% url 'send_friend_request' %}">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter username" required>
+    <button type="submit">Send Friend Request</button>
+</form>
+
+<!-- Display Pending Requests You've Sent -->
 <h3>Pending Requests You've Sent</h3>
 <ul>
     {% for request in sent_requests %}
@@ -12,6 +21,7 @@
     {% endfor %}
 </ul>
 
+<!-- Display Received Friend Requests -->
 <h3>Received Friend Requests</h3>
 <ul>
     {% for request in received_requests %}
@@ -24,7 +34,8 @@
     {% endfor %}
 </ul>
 
-<h3>Friends</h3>
+<!-- Display Your Friends -->
+<h3>Your Friends</h3>
 <ul>
     {% for friend in friends %}
         <li>{{ friend.username }}</li>
@@ -32,4 +43,5 @@
         <li>You have no friends yet.</li>
     {% endfor %}
 </ul>
+
 {% endblock %}

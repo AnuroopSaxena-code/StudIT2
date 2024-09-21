@@ -53,12 +53,13 @@ class Profile(models.Model):
         return self.user.username
 
 class Friendship(models.Model):
-    from_user = models.ForeignKey(User, related_name='friendships_sent', on_delete=models.CASCADE)
-    to_user = models.ForeignKey(User, related_name='friendships_received', on_delete=models.CASCADE)
+    from_user = models.ForeignKey(User, related_name='friend_requests_sent', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='friend_requests_received', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, default='pending', choices=(('pending', 'Pending'), ('accepted', 'Accepted')))
 
-    class Meta:
-        unique_together = ('from_user', 'to_user')
+    def __str__(self):
+        return f"{self.from_user.username} -> {self.to_user.username} ({self.status})"
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
