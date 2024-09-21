@@ -567,3 +567,98 @@ a.out_session_hub:hover, a.out_todo_list:hover {
     margin-top: 20px;
 }
 
+.task_background {
+    position: absolute;
+    top: 180px;
+    left: 610px;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+/* Centered signup form */
+.task_container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 350px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+}
+
+.todo_header{
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+input[type="text"]:focus {
+    border-color: #66afe9;
+    outline: none;
+}
+button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #5f44b0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease ;
+}
+button:hover {
+    background-color: #00013f;
+}
+
+
+/* Style the container for the date and time inputs */
+.From_container {
+    display: flex;
+    gap: 15px; /* Adds spacing between the inputs */
+    flex-direction: column; /* Aligns inputs vertically */
+    margin: 5px 0; /* Adds margin for spacing */
+    width: 100%;
+}
+
+/* Style for input fields */
+.From_container input[type="date"],
+.From_container input[type="time"] {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+
+.To_container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.To_container input {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
