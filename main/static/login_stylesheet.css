@@ -16,6 +16,36 @@ body {
     background-color: #141414;
 }
 
+.StudIT {
+    position: absolute;
+    font-family: "Figtree";
+    src: url(./assets/Figtree-Light.ttf);
+    top: 10px;
+    left: 30px;
+    font-size: 36px; /* Adjust size as needed */
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Animation for grow and text glow */
+}
+
+.StudIT a {
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Smooth animation for the link */
+}
+
+.StudIT:hover {
+    transform: scale(1.1); /* Grows the element slightly */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Glowing white shadow */
+                 0 0 20px rgba(255, 255, 255, 0.6), 
+                 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.StudIT a:hover {
+    transform: scale(1.1); /* Grows the link slightly */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Glowing white shadow */
+                 0 0 20px rgba(255, 255, 255, 0.6), 
+                 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
 /* Full-screen background */
 .login-background {
     background: url(./assets/login_bg.jpg) no-repeat center center fixed;
@@ -92,3 +122,4 @@ input::placeholder {
 .signup-link:hover {
     text-decoration: underline;
 }
+

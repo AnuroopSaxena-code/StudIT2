@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Student
+from .models import Student, Task
 
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -25,3 +25,8 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = ['registration_no', 'enrollment_year', 'branch']
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['task_name', 'start_date', 'start_time', 'end_date', 'end_time']

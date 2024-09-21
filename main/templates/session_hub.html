@@ -70,10 +70,9 @@
                 <strong>Status:</strong> {{ session.is_active|yesno:"Active,Expired" }}<br>
 
                 {% if session.is_active %}
-                    <!-- Show message link only if the session is active -->
-                    <a href="{% url 'message_user' session.user.username %}">Message {{ session.user.username }}</a>
+                    <!-- Change to use user.id instead of username -->
+                    <a href="{% url 'message_user' session.user.id %}">Message {{ session.user.username }}</a>
                 {% else %}
-                    <!-- Do not display message link if the session is expired -->
                     <p>Session Expired - Messaging Disabled</p>
                 {% endif %}
             </li>

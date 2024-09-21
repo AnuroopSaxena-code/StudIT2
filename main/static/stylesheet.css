@@ -43,6 +43,180 @@ body{
     transition: transform 0.3s ease, text-shadow 0.3s ease; /* Smooth animation for the link */
 }
 
+.Navbar {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.Navbar a{
+    position:relative;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-family: "Figtree";
+    src: url(./assets/Figtree-Regular.ttf);
+    font-size: 16px;
+}
+
+.menu-icon {
+    position: relative;
+    top: -2px;
+    right: 0px;
+    font-size: 2rem; 
+    color: #fff; 
+    transition: all 0.3s ease-in-out;
+}
+
+
+.menu-icon:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); /* Glow effect */
+}
+
+
+.menu-icon::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -5px; 
+    left: 0;
+    background-color: #fff;
+    transition: width 0.3s ease-in-out;
+}
+
+.menu-icon:hover::after {
+    width: 100%;
+}
+
+
+.Leaderboard {
+    position: relative;
+    font-size: 2rem; 
+    color: #fff; 
+    text-decoration: none; 
+    transition: all 0.3s ease-in-out;
+}
+
+
+.Leaderboard:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); /* Glow effect */
+}
+
+
+.Leaderboard::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff; 
+    transition: width 0.3s ease-in-out; 
+}
+
+.Leaderboard:hover::after {
+    width: 100%;
+}
+
+
+.friends-link {
+    position: relative;
+    font-size: 2rem; 
+    color: #fff; 
+    text-decoration: none; 
+    transition: all 0.3s ease-in-out; 
+}
+
+/* Glow Effect */
+.friends-link:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); /* Glow effect */
+}
+
+/* Underline animation */
+.friends-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff; 
+    transition: width 0.3s ease-in-out; 
+}
+
+.friends-link:hover::after {
+    width: 100%; 
+}
+
+
+
+.Dashboard {
+    position: relative;
+    font-size: 2rem;
+    color: #fff;
+    text-decoration: none; 
+    transition: all 0.3s ease-in-out;
+}
+
+/* Glow Effect */
+.Dashboard:hover {
+    transform: scale(1.1); 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); /* Glow effect */
+}
+
+/* Underline animation */
+.Dashboard::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff; 
+    transition: width 0.3s ease-in-out;
+}
+
+.Dashboard:hover::after {
+    width: 100%;
+}
+
+.Message_View {
+    position: relative;
+    font-size: 2rem;
+    color: #fff;
+    text-decoration: none; 
+    transition: all 0.3s ease-in-out;
+}
+
+/* Glow Effect */
+.Message_View:hover {
+    transform: scale(1.1); 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6); /* Glow effect */
+}
+
+/* Underline animation */
+.Message_View::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff; 
+    transition: width 0.3s ease-in-out;
+}
+
+.Message_View:hover::after {
+    width: 100%;
+}
+
 /* Glow and grow effect on hover */
 .StudIT:hover {
     transform: scale(1.1); /* Grows the element slightly */
@@ -157,4 +331,119 @@ body{
 .Sign_up a:hover {
     background-color: black;
     color: white;
+}
+
+/* Menu container */
+.menu {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Hidden by default */
+    width: 250px; /* Width of the menu */
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    transition: right 0.3s ease; /* Smooth transition */
+    z-index: 1000; /* Ensure it appears above other elements */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Ensures the Logout button is at the bottom */
+    align-items: center;
+    padding: 20px;
+}
+
+/* Show the menu when it's active */
+.menu.active {
+    right: 0; /* Slide in */
+}
+
+/* Style for the Logout button */
+.Logout {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: 2px solid black;
+    border-radius: 25px; /* Rounded corners */
+    background-color: black;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%; /* Full width of the menu */
+    text-align: center;
+}
+
+.Logout:hover {
+    background-color: white;
+    color: black;
+}
+
+/* Style for other menu links */
+.menu-links {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-links li {
+    margin-bottom: 20px;
+}
+
+.menu-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+
+.User_welcome {
+    position: absolute;
+    top: 20px;
+    left: 560px;
+    font-family: "Monarque";
+    src: url(./assets/Monarque/Monarque-Italic.otf);
+    font-style: italic;
+    font-size: 42px;
+    color: #fff;
+    list-style: none;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7),
+                 0 0 10px rgba(255, 255, 255, 0.6),
+                 0 0 20px rgba(255, 255, 255, 0.5),
+                 0 0 40px rgba(0, 102, 255, 0.75),  /* Outer glow in neon blue */
+                 0 0 80px rgba(0, 102, 255, 0.75); /* Stronger neon effect */
+
+    animation: neonGlow 1.5s ease-in-out infinite alternate, shimmer 5s ease-in-out infinite;
+}
+
+/* Pulsating neon glow effect */
+@keyframes neonGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.7),
+                     0 0 10px rgba(255, 255, 255, 0.6),
+                     0 0 20px rgba(255, 255, 255, 0.5),
+                     0 0 40px rgba(0, 102, 255, 0.75),
+                     0 0 80px rgba(0, 102, 255, 0.75);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 1),
+                     0 0 20px rgba(255, 255, 255, 1),
+                     0 0 30px rgba(0, 102, 255, 1),
+                     0 0 60px rgba(0, 102, 255, 1),
+                     0 0 100px rgba(0, 102, 255, 1);
+    }
+}
+
+/* Shimmer effect moving from left to right */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.Logout{
+    bottom:10px;
+    right:10px;
 }

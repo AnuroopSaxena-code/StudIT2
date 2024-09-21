@@ -1,0 +1,149 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Figtree';
+    src: url(./assets/Figtree-Regular.ttf);
+    background: url(./assets/login_bg.jpg) no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #141414;
+}
+
+/* Full-screen background */
+.signup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: 0.9;
+}
+
+/* Centered signup form */
+.signup-container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 350px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+}
+
+.signup-header {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.hidden {
+    display: none; /* Hides the label from view */
+}
+
+
+input[type="text"], 
+input[type="password"],
+input[type="email"], 
+input[type="number"], 
+input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0; /* Adjust this value for overall gap */
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: #fff;
+    font-size: 14px;
+}
+
+input[type="text"]:last-of-type {
+    margin-bottom: 10px; /* Increase this value to create more space */
+}
+
+.branch { /* Assuming you can apply a class to the branch input */
+    margin-bottom: 5px;
+    margin-top: 5px; /* Adjust this value for the desired gap */
+}
+
+input::placeholder {
+    color: #888;
+}
+
+.signup-button {
+    background-color: #272169;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 7px; /* Keep this for spacing above the button */
+    margin-bottom: 15px; /* Add this line to create space below the button */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+
+.signup-button:hover {
+    background-color: #1d1a58; /* Slightly darker blue on hover */
+    transform: scale(1.05); /* Grows 5% in size */
+}
+
+.login-link {
+    display: block;
+    margin-top: 50px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+.Login-button{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.StudIT {
+    position: absolute;
+    font-family: "Figtree";
+    src: url(./assets/Figtree-Light.ttf);
+    top: 10px;
+    left: 30px;
+    font-size: 36px; /* Adjust size as needed */
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Animation for grow and text glow */
+}
+
+.StudIT a {
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Smooth animation for the link */
+}
+
+.StudIT:hover {
+    transform: scale(1.1); /* Grows the element slightly */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Glowing white shadow */
+                 0 0 20px rgba(255, 255, 255, 0.6), 
+                 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.StudIT a:hover {
+    transform: scale(1.1); /* Grows the link slightly */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Glowing white shadow */
+                 0 0 20px rgba(255, 255, 255, 0.6), 
+                 0 0 30px rgba(255, 255, 255, 0.4);
+}

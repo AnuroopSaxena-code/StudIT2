@@ -9,6 +9,7 @@
     <div class="buttons">
         {% if user.is_authenticated %}
             <a href="{% url 'session_hub' %}">SessionHub</a>
+            <a href="{% url 'todo_list' %}">To-Do List</a>
         {% endif %}
     </div>
 </div>

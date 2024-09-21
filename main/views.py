@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .forms import SignUpForm
-from .models import Student,FriendRequest, Friendship, Session, Message
+from .forms import SignUpForm,TaskForm
+from .models import Student,FriendRequest, Friendship, Session, Message, Task
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
 
 def home(request):
     return render(request, 'home.html')
@@ -189,3 +193,78 @@ def send_message_to_user(request, user_id):
             message.save()
 
         return redirect('session_hub')  # Redirect back to the session hub after sending
+
+@login_required    
+def todo_list_view(request):
+    tasks = Task.objects.filter(user=request.user)
+    
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
+            return redirect('todo_list')
+    else:
+        form = TaskForm()
+
+    context = {
+        'tasks': tasks,
+        'form': form,
+    }
+    return render(request, 'todo_list.html', context)
+
+@login_required
+def toggle_task_complete(request, task_id):
+    task = Task.objects.get(id=task_id)
+    if task.user == request.user:
+        task.completed = not task.completed
+        task.save()
+    return redirect('todo_list')
+
+@login_required
+def edit_task(request, task_id):
+    task = Task.objects.get(id=task_id)
+    if task.user != request.user:
+        return redirect('todo_list')
+    
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('todo_list')
+    else:
+        form = TaskForm(instance=task)
+
+    return render(request, 'edit_task.html', {'form': form})
+
+@login_required
+def delete_task(request, task_id):
+    task = Task.objects.get(id=task_id)
+    if task.user == request.user:
+        task.delete()
+    return redirect('todo_list')
+
+@csrf_exempt  # Make sure to handle CSRF properly in production
+def add_task(request):
+    if request.method == 'POST':
+        task_name = request.POST.get('task_name')
+        start_date = request.POST.get('start_date')
+        start_time = request.POST.get('start_time')
+        end_date = request.POST.get('end_date')
+        end_time = request.POST.get('end_time')
+
+        # Create and save the new task
+        Task.objects.create(
+            name=task_name,
+            start_date=start_date,
+            start_time=start_time,
+            end_date=end_date,
+            end_time=end_time,
+            user=request.user  # Assuming you want to associate it with the logged-in user
+        )
+        return redirect('todo_list')  # Redirect to the To-Do List page after adding
+
+    # If GET request, show the to-do list with current tasks
+    tasks = Task.objects.filter(user=request.user)  # Filter tasks for the logged-in user
+    return render(request, 'todo_list.html', {'tasks': tasks})

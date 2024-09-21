@@ -69,3 +69,15 @@ class Message(models.Model):
 
     def __str__(self):
         return f"{self.sender} to {self.recipient}: {self.content}"
+
+class Task(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    task_name = models.CharField(max_length=200)
+    start_date = models.DateField()
+    start_time = models.TimeField()
+    end_date = models.DateField()
+    end_time = models.TimeField()
+    completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.task_name

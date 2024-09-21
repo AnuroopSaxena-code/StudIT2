@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>To-Do List</h2>
+
+<!-- Form to add a new task -->
+<form method="POST" id="add-task-form">
+    {% csrf_token %}
+    <input type="text" name="task_name" placeholder="Task Name" required>
+    
+    <label for="start_date">Start Date:</label>
+    <input type="date" name="start_date" required>
+    
+    <label for="start_time">Start Time:</label>
+    <input type="time" name="start_time" required>
+    
+    <label for="end_date">End Date:</label>
+    <input type="date" name="end_date" required>
+    
+    <label for="end_time">End Time:</label>
+    <input type="time" name="end_time" required>
+    
+    <button type="submit">Add Task</button>
+</form>
+
+<h3>Your Tasks</h3>
+<ul>
+    {% for task in tasks %}
+        <li>
+            <strong>{{ task.name }}</strong><br>
+            Start: {{ task.start_date }} {{ task.start_time }}<br>
+            End: {{ task.end_date }} {{ task.end_time }}<br>
+            <label>
+                <input type="checkbox" onchange="toggleTaskComplete({{ task.id }})" {% if task.is_completed %}checked{% endif %}>
+                Complete
+            </label>
+            <a href="{% url 'edit_task' task.id %}">Edit</a>
+            <a href="{% url 'delete_task' task.id %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No tasks available.</li>
+    {% endfor %}
+</ul>
+
+<!-- JavaScript to handle task completion toggle -->
+<script>
+function toggleTaskComplete(taskId) {
+    fetch(`/todo/toggle/${taskId}/`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+    .then(response => {
+        if (response.ok) {
+            location.reload(); // Reload the page to see updated task list
+        }
+    });
+}
+</script>
+
+{% endblock %}
