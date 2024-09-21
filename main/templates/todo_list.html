@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>To-Do List</h2>
+
 
 <!-- Task Form for adding new tasks -->
-<form id="add-task-form" method="POST">
-    {% csrf_token %}
-    <input type="text" name="task_name" placeholder="Task Name" required>
-    <input type="date" name="start_date" required>
-    <input type="time" name="start_time" required>
-    <input type="date" name="end_date" required>
-    <input type="time" name="end_time" required>
-    <button type="submit">Add Task</button>
-</form>
+ <div class="task_background">
+        <div class="task_container">
+            <h2 class="todo_header">To-Do List</h2>
+            <form id="add-task-form" method="POST">
+                {% csrf_token %}
+                <input type="text" name="task_name" placeholder="Task Name" required>
+                <div class="From_container">
+                    <input type="date" name="start_date" placeholder="Date" required>
+                    <input type="time" name="start_time" placeholder="Time" required>
+                </div>
+                <div class="To_container">
+                    <input type="date" name="end_date" placeholder="Date" required>
+                    <input type="time" name="end_time" placeholder="Time" required>
+                </div>
+                <button type="submit">Add Task</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Task List Display -->
 <ul id="task-list">
