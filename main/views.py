@@ -10,7 +10,9 @@ from django.urls import reverse
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 import json
+
 
 
 def home(request):
@@ -306,11 +308,48 @@ def accept_friend_request(request, request_id):
     return redirect('friends')
     print(f"Accepting friend request from {friend_request.from_user.username} to {friend_request.to_user.username}")
 
-
-
-
 @login_required
 def decline_friend_request(request, request_id):
     friend_request = get_object_or_404(FriendRequest, id=request_id, to_user=request.user)
     friend_request.delete()
     return redirect('friends')
+
+
+def session_hub_view(request):
+    if request.method == "POST":
+        # Create a new session
+        title = request.POST['title']
+        purpose = request.POST['purpose']
+        branch = request.POST['branch']
+        start_date = request.POST['start_date']
+        start_time = request.POST['start_time']
+        end_date = request.POST['end_date']
+        end_time = request.POST['end_time']
+        
+        session = Session.objects.create(
+            user=request.user,
+            title=title,
+            purpose=purpose,
+            branch=branch,
+            start_date=start_date,
+            start_time=start_time,
+            end_date=end_date,
+            end_time=end_time,
+        )
+        return redirect('session_hub')
+    
+    my_sessions = Session.objects.filter(user=request.user)
+    all_sessions = Session.objects.all()  # Fetch all sessions for View Sessions panel
+
+    return render(request, 'session_hub.html', {
+        'my_sessions': my_sessions,
+        'all_sessions': all_sessions,  # Include all sessions
+    })
+
+
+@login_required
+def delete_session(request, session_id):
+    # Only allow the user to delete their own session
+    session = get_object_or_404(Session, id=session_id, user=request.user)
+    session.delete()
+    return redirect('session_hub')

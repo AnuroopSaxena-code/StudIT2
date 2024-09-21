@@ -3,6 +3,7 @@
 {% block content %}
 <h2>SessionHub</h2>
 
+<!-- Form to Create a Session -->
 <div>
     <h3>Create Session</h3>
     <form method="POST">
@@ -25,8 +26,6 @@
             <option value="EEE">EEE</option>
             <option value="Mechanical">Mechanical</option>
             <option value="Civil">Civil</option>
-            <option value="Biotechnology">Biotechnology</option>
-            <option value="Any">Any</option>
         </select>
 
         <label for="start_date">Start Date:</label>
@@ -45,42 +44,41 @@
     </form>
 </div>
 
+<!-- Display My Sessions -->
 <div>
     <h3>My Sessions</h3>
     <ul>
         {% for session in my_sessions %}
-            <li>{{ session.title }} - {{ session.is_active|yesno:"Active,Expired" }}</li>
+        <li>
+            {{ session.title }} - {{ session.purpose }} - {{ session.branch }}
+            <form method="POST" action="{% url 'delete_session' session.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>No sessions available.</li>
         {% endfor %}
     </ul>
 </div>
 
+<!-- Display All Sessions -->
 <div>
-    <h3>View Sessions</h3>
+    <h3>All Sessions</h3>
     <ul>
         {% for session in all_sessions %}
-            <li>
-                <strong>Username:</strong> {{ session.user.username }}<br>
-                <strong>Title:</strong> {{ session.title }}<br>
-                <strong>Purpose:</strong> {{ session.purpose }}<br>
-                <strong>Branch:</strong> {{ session.branch }}<br>
-                <strong>Start Date:</strong> {{ session.start_date }}<br>
-                <strong>Start Time:</strong> {{ session.start_time }}<br>
-                <strong>End Date:</strong> {{ session.end_date }}<br>
-                <strong>End Time:</strong> {{ session.end_time }}<br>
-                <strong>Status:</strong> {{ session.is_active|yesno:"Active,Expired" }}<br>
-
-                {% if session.is_active %}
-                    <!-- Show message link only if the session is active and the user is not the session creator -->
-                    {% if session.user.username != user.username %}
-                        <a href="{% url 'message_user' session.user.username %}">Message {{ session.user.username }}</a>
-                    {% else %}
-                        <p>You cannot message yourself.</p>
-                    {% endif %}
-                {% else %}
-                    <p>Session Expired - Messaging Disabled</p>
-                {% endif %}
-            </li>
+        <li>
+            {{ session.title }} - {{ session.purpose }} - {{ session.branch }}
+            <form method="POST" action="{% url 'send_message_to_user' session.user.id %}">
+                {% csrf_token %}
+                <input type="text" name="message" placeholder="Type your message..." required>
+                <button type="submit">Message Creator</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>No sessions available.</li>
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}
