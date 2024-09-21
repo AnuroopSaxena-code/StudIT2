@@ -1,16 +1,13 @@
-<h2>Messaging</h2>
-<div id="message-history">
+<h1>Messages</h1>
+<ul>
     {% for message in messages %}
-        <div class="message">
-            <p><strong>{{ message.sender.username }}:</strong> {{ message.content }}</p>
-            <p>{{ message.timestamp }}</p>
-        </div>
+        <li>{{ message.sender }}: {{ message.content }} ({{ message.timestamp }})</li>
     {% endfor %}
-</div>
+</ul>
 
 <form method="POST" action="{% url 'send_message' %}">
     {% csrf_token %}
-    <input type="text" name="recipient" placeholder="Recipient Username" required>
-    <textarea name="content" placeholder="Type your message" required></textarea>
+    <input type="text" name="recipient_id" placeholder="Recipient ID" required>
+    <textarea name="message_content" placeholder="Type your message here" required></textarea>
     <button type="submit">Send</button>
 </form>

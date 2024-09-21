@@ -11,13 +11,12 @@
     <header>
         <h1><a href="{% url 'home' %}">StudIT</a></h1>
         <nav>
-            <ul>
                 {% if user.is_authenticated %}
                     <li>Welcome, {{ user.username }}</li>
                     <li><a href="{% url 'leaderboard' %}">Leaderboard</a></li>
                     <li><a href="{% url 'friends' %}">Friends</a></li>
                     <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                    <li><a href="{% url 'messaging' %}">Messaging</a></li>
+                    <li><a href="{% url 'message_view' %}">Messages</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main',
     'channels',
 ]
+ASGI_APPLICATION = 'your_project.asgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

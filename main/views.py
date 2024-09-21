@@ -128,42 +128,19 @@ def session_hub(request):
     return render(request, 'session_hub.html', {'my_sessions': my_sessions, 'all_sessions': all_sessions})
 
 @login_required
-def messaging_view(request):
-    messages = Message.objects.filter(recipient=request.user).order_by('-timestamp')
-    return render(request, 'messaging.html', {'messages': messages})
-
-@login_required
-def send_message(request):
-    if request.method == 'POST':
-        recipient = request.POST['recipient_id']
-        content = request.POST['content']
-        recipient = User.objects.get(id=recipient)
-        Message.objects.create(sender=request.user, recipient=recipient, content=content)
-        return redirect('messaging')
-    
-@login_required
-def chat_view(request, user_id):
-    user = User.objects.get(id=user_id)
-    messages = Message.objects.filter(
-        (Q(sender=request.user) & Q(recipient=user)) | 
-        (Q(sender=user) & Q(recipient=request.user))
-    ).order_by('timestamp')
-    return render(request, 'chat.html', {'messages': messages, 'user': user})
-
-@login_required
 def message_view(request):
     if request.method == 'POST':
         # Handle message sending
         recipient_username = request.POST.get('recipient')
-        message_text = request.POST.get('message')
+        message_content = request.POST.get('message')  # Change 'message' to match the input field
 
         try:
             recipient = User.objects.get(username=recipient_username)
-            # Create and save the message
-            message = Message(sender=request.user, recipient=recipient, text=message_text)
+            # Create and save the message using 'content'
+            message = Message(sender=request.user, recipient=recipient, content=message_content)
             message.save()
         except User.DoesNotExist:
-            # Handle the case where the recipient does not exist (optional)
+            # Handle the case where the recipient does not exist
             return render(request, 'message.html', {
                 'messages': Message.objects.filter(recipient=request.user).order_by('-timestamp'),
                 'error': 'Recipient does not exist.'
@@ -176,12 +153,25 @@ def message_view(request):
     
     return render(request, 'message.html', {'messages': messages})
 
-def message_history(request):
-    user = request.user
-    received_messages = Message.objects.filter(recipient=user).order_by('-timestamp')
-    sent_messages = Message.objects.filter(sender=user).order_by('-timestamp')
-    context = {
-        'received_messages': received_messages,
-        'sent_messages': sent_messages,
-    }
-    return render(request, 'your_template.html', context)
+
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        recipient_id = request.POST.get('recipient_id')
+        message_content = request.POST.get('message_content')  # Make sure this matches your input field
+
+        message = Message(
+            sender=request.user,
+            recipient_id=recipient_id,
+            content=message_content,
+        )
+        message.save()
+    
+@login_required
+def chat_view(request, user_id):
+    user = User.objects.get(id=user_id)
+    messages = Message.objects.filter(
+        (Q(sender=request.user) & Q(recipient=user)) | 
+        (Q(sender=user) & Q(recipient=request.user))
+    ).order_by('timestamp')
+    return render(request, 'chat.html', {'messages': messages, 'user': user})
