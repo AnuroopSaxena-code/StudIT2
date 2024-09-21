@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm
-from .models import Student,FriendRequest, Friendship, Session
+from .models import Student,FriendRequest, Friendship, Session, Message
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Q
 
 def home(request):
     return render(request, 'home.html')
@@ -125,3 +126,52 @@ def session_hub(request):
     all_sessions = Session.objects.all()  # Fetch all sessions for View Sessions panel
 
     return render(request, 'session_hub.html', {'my_sessions': my_sessions, 'all_sessions': all_sessions})
+
+@login_required
+def messaging_view(request):
+    messages = Message.objects.filter(receiver=request.user).order_by('-timestamp')
+    return render(request, 'messaging.html', {'messages': messages})
+
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        receiver_id = request.POST['receiver_id']
+        content = request.POST['content']
+        receiver = User.objects.get(id=receiver_id)
+        Message.objects.create(sender=request.user, receiver=receiver, content=content)
+        return redirect('messaging')
+    
+@login_required
+def chat_view(request, user_id):
+    user = User.objects.get(id=user_id)
+    messages = Message.objects.filter(
+        (Q(sender=request.user) & Q(receiver=user)) | 
+        (Q(sender=user) & Q(receiver=request.user))
+    ).order_by('timestamp')
+    return render(request, 'chat.html', {'messages': messages, 'user': user})
+
+@login_required
+def message_view(request):
+    if request.method == 'POST':
+        # Handle message sending
+        recipient_username = request.POST.get('recipient')
+        message_text = request.POST.get('message')
+
+        try:
+            recipient = User.objects.get(username=recipient_username)
+            # Create and save the message
+            message = Message(sender=request.user, recipient=recipient, text=message_text)
+            message.save()
+        except User.DoesNotExist:
+            # Handle the case where the recipient does not exist (optional)
+            return render(request, 'your_app/message.html', {
+                'messages': Message.objects.filter(recipient=request.user).order_by('-timestamp'),
+                'error': 'Recipient does not exist.'
+            })
+
+        return redirect('message_view')  # Redirect to the same view after sending the message
+
+    # Get messages for the logged-in user
+    messages = Message.objects.filter(recipient=request.user).order_by('-timestamp')
+    
+    return render(request, 'your_app/message.html', {'messages': messages})

@@ -1,0 +1,32 @@
+<h2>Chat with {{ user.username }}</h2>
+<div id="chat-messages">
+    {% for message in messages %}
+        <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+            <strong>{{ message.sender }}:</strong> {{ message.content }} <span>{{ message.timestamp }}</span>
+        </div>
+    {% endfor %}
+</div>
+<input type="text" id="message-input" placeholder="Type a message...">
+<button id="send-button">Send</button>
+
+<script>
+    const roomName = "{{ user.id }}"; // Use the user's ID for the room name
+    const chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/`);
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageElement = document.createElement('div');
+        messageElement.innerHTML = `<strong>${data.sender_id}:</strong> ${data.message}`;
+        document.getElementById('chat-messages').appendChild(messageElement);
+    };
+
+    document.getElementById('send-button').onclick = function(e) {
+        const messageInputDom = document.getElementById('message-input');
+        const message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'sender_id': "{{ request.user.id }}"
+        }));
+        messageInputDom.value = '';
+    };
+</script>
