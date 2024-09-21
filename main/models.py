@@ -45,6 +45,8 @@ class FriendRequest(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    registration_number = models.CharField(max_length=9)
+    branch = models.CharField(max_length=100)
     friends = models.ManyToManyField('self', symmetrical=False, related_name='friend_set', blank=True)
     
     def __str__(self):
