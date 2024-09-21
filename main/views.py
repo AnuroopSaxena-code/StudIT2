@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import SignUpForm,TaskForm
 from .models import Student,FriendRequest, Friendship, Session, Message, Task
@@ -66,11 +67,23 @@ def leaderboard_view(request):
     return render(request, 'leaderboard.html')
 
 @login_required
+def send_friend_request(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        to_user = get_object_or_404(User, username=username)
+        if request.user != to_user:
+            friendship, created = Friendship.objects.get_or_create(from_user=request.user, to_user=to_user, defaults={'status': 'pending'})
+            if not created:
+                messages.warning(request, "Friend request already sent.")
+            else:
+                messages.success(request, "Friend request sent.")
+    return redirect('friends')
+
+@login_required
 def friends_view(request):
-    profile = request.user.profile
-    sent_requests = FriendRequest.objects.filter(from_user=request.user, status='pending')
-    received_requests = FriendRequest.objects.filter(to_user=request.user, status='pending')
-    friends = profile.friends.all()
+    sent_requests = Friendship.objects.filter(from_user=request.user, status='pending')
+    received_requests = Friendship.objects.filter(to_user=request.user, status='pending')
+    friends = request.user.profile.friends.all()  # Assuming a profile model
 
     context = {
         'sent_requests': sent_requests,
@@ -80,29 +93,22 @@ def friends_view(request):
     }
     return render(request, 'friends.html', context)
 
-
-@login_required
-def send_friend_request(request, username):
-    to_user = get_object_or_404(User, username=username)
-    if request.user != to_user:
-        Friendship.objects.get_or_create(from_user=request.user, to_user=to_user)
-    return HttpResponseRedirect(reverse('friends'))
-
 @login_required
 def accept_friend_request(request, request_id):
     friendship = get_object_or_404(Friendship, id=request_id)
     if friendship.to_user == request.user:
-        friendship.to_user.profile.friends.add(friendship.from_user)
-        friendship.from_user.profile.friends.add(friendship.to_user)
-        friendship.delete()  # Remove the request after acceptance
-    return HttpResponseRedirect(reverse('friends'))
+        friendship.status = 'accepted'
+        friendship.save()
+        messages.success(request, "Friend request accepted.")
+    return redirect('friends')
 
 @login_required
 def decline_friend_request(request, request_id):
     friendship = get_object_or_404(Friendship, id=request_id)
     if friendship.to_user == request.user:
         friendship.delete()  # Simply delete the request
-    return HttpResponseRedirect(reverse('friends'))
+        messages.success(request, "Friend request declined.")
+    return redirect('friends')
 
 def session_hub(request):
     if request.method == "POST":
@@ -260,22 +266,34 @@ def delete_task(request, task_id):
 @csrf_exempt  # Make sure to handle CSRF properly in production
 def add_task(request):
     if request.method == 'POST':
-        task_name = request.POST.get('task_name')
-        start_date = request.POST.get('start_date')
-        start_time = request.POST.get('start_time')
-        end_date = request.POST.get('end_date')
-        end_time = request.POST.get('end_time')
+        # Get the JSON data from the request body
+        data = json.loads(request.body)
+        task_name = data.get('task_name')
+        start_date = data.get('start_date')
+        start_time = data.get('start_time')
+        end_date = data.get('end_date')
+        end_time = data.get('end_time')
 
         # Create and save the new task
-        Task.objects.create(
-            name=task_name,
+        task = Task.objects.create(
+            task_name=task_name,  # Ensure the field name matches your model
             start_date=start_date,
             start_time=start_time,
             end_date=end_date,
             end_time=end_time,
             user=request.user  # Assuming you want to associate it with the logged-in user
         )
-        return redirect('todo_list')  # Redirect to the To-Do List page after adding
+
+        # Return a JSON response with the new task's ID and details
+        return JsonResponse({
+            'id': task.id,
+            'task_name': task.task_name,
+            'start_date': task.start_date,
+            'start_time': task.start_time,
+            'end_date': task.end_date,
+            'end_time': task.end_time,
+            'success': True
+        })
 
     # If GET request, show the to-do list with current tasks
     tasks = Task.objects.filter(user=request.user)  # Filter tasks for the logged-in user
