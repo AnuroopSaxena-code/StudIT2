@@ -3,54 +3,121 @@
 {% block content %}
 <h2>To-Do List</h2>
 
-<!-- Form to add a new task -->
-<form method="POST" id="add-task-form">
+<!-- Task Form for adding new tasks -->
+<form id="add-task-form" method="POST">
     {% csrf_token %}
     <input type="text" name="task_name" placeholder="Task Name" required>
-    
-    <label for="start_date">Start Date:</label>
     <input type="date" name="start_date" required>
-    
-    <label for="start_time">Start Time:</label>
     <input type="time" name="start_time" required>
-    
-    <label for="end_date">End Date:</label>
     <input type="date" name="end_date" required>
-    
-    <label for="end_time">End Time:</label>
     <input type="time" name="end_time" required>
-    
     <button type="submit">Add Task</button>
 </form>
 
-<h3>Your Tasks</h3>
-<ul>
+<!-- Task List Display -->
+<ul id="task-list">
     {% for task in tasks %}
-        <li>
-            <strong>{{ task.name }}</strong><br>
-            Start: {{ task.start_date }} {{ task.start_time }}<br>
-            End: {{ task.end_date }} {{ task.end_time }}<br>
-            <label>
-                <input type="checkbox" onchange="toggleTaskComplete({{ task.id }})" {% if task.is_completed %}checked{% endif %}>
-                Complete
-            </label>
-            <a href="{% url 'delete_task' task.id %}">Delete</a>
-        </li>
-    {% empty %}
-        <li>No tasks available.</li>
+    <li id="task-{{ task.id }}">
+        <input type="checkbox" class="task-complete-checkbox" data-task-id="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+        <span>{{ task.task_name }} - {{ task.start_date }} {{ task.start_time }} to {{ task.end_date }} {{ task.end_time }}</span>
+        <button class="delete-task" data-task-id="{{ task.id }}">Delete</button>
+    </li>
     {% endfor %}
 </ul>
 
-<!-- JavaScript to handle task completion toggle -->
 <script>
-function toggleTaskComplete(taskId) {
-    fetch(`/todo/toggle/${taskId}/`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
-    .then(response => {
-        if (response.ok) {
-            location.reload(); // Reload the page to see updated task list
-        }
-    });
-}
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addTaskForm = document.getElementById('add-task-form');
 
+        // Handle task addition
+        addTaskForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(addTaskForm);
+            const taskData = {
+                'task_name': formData.get('task_name'),
+                'start_date': formData.get('start_date'),
+                'start_time': formData.get('start_time'),
+                'end_date': formData.get('end_date'),
+                'end_time': formData.get('end_time')
+            };
+
+            fetch("{% url 'add_task' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(taskData)
+            }).then(response => {
+                if (response.ok) {
+                    return response.json(); // Parse JSON if response is OK
+                } else {
+                    throw new Error('Failed to add task');
+                }
+            }).then(data => {
+                // Create new task element
+                const newTaskItem = document.createElement('li');
+                newTaskItem.id = 'task-' + data.id; // Assuming response includes the new task's ID
+                newTaskItem.innerHTML = `
+                    <input type="checkbox" class="task-complete-checkbox" data-task-id="${data.id}">
+                    <span>${data.task_name} - ${data.start_date} ${data.start_time} to ${data.end_date} ${data.end_time}</span>
+                    <button class="delete-task" data-task-id="${data.id}">Delete</button>
+                `;
+                document.getElementById('task-list').appendChild(newTaskItem);
+                addTaskForm.reset(); // Reset the form
+            }).catch(error => {
+                alert(error.message);
+            });
+        });
+
+        // Handle check/uncheck task
+        document.querySelectorAll('.task-complete-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const taskId = this.getAttribute('data-task-id');
+                const isComplete = this.checked;
+
+                fetch("{% url 'toggle_task_complete' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        'task_id': taskId,
+                        'is_complete': isComplete
+                    })
+                }).then(response => {
+                    if (!response.ok) {
+                        alert('Failed to update task status');
+                    }
+                });
+            });
+        });
+
+        // Handle task deletion
+        document.querySelectorAll('.delete-task').forEach(button => {
+            button.addEventListener('click', function() {
+                const taskId = this.getAttribute('data-task-id');
+                
+                fetch("{% url 'delete_task' %}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        'task_id': taskId
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        // Remove task from the list
+                        document.getElementById('task-' + taskId).remove();
+                    } else {
+                        alert('Failed to delete task');
+                    }
+                });
+            });
+        });
+    });
+</script>
 {% endblock %}
