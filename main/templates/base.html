@@ -15,10 +15,10 @@
                 {% if user.is_authenticated %}
                     <li class="User_welcome">Welcome, {{ user.username }}</li>
                     <div class="Navbar">
-                        <li><a class="Leaderboard" href="{% url 'leaderboard' %}">Leaderboard</a></li>
                         <li><a class="Dashboard" href="{% url 'dashboard' %}">Dashboard</a></li>
                         <li><a class="Message_View" href="{% url 'message_view' %}">Messages</a></li>
                         <li><a class="Friends" href="{% url 'friends' %}">Friends</a></li>
+                        <li><a class="Leaderboard" href="{% url 'leaderboard' %}">Leaderboard</a></li>
                         <li><a href="#" class="menu-icon">&#9776;</a></li>
                     </div>
                 {% else %}
