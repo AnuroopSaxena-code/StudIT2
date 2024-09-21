@@ -450,26 +450,64 @@ body{
 
 .Dashboard_background {
     position: absolute;
-    top: 300px;
+    top: 200px;
     right: 630px;
     z-index: 1;
     opacity: 0.9;
 }
 
 .Dashboard_Box{
-    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    background: rgba(0, 24, 51, 0.7);  /* Dark translucent background */
     border-radius: 10px;
     padding: 40px;
     max-width: 350px;
     width: 100%;
     color: white;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    border: 1px solid #888888;
+    border: 1px solid #ffffff;
 }
 
 .dashboard-header{
         font-size: 28px;
-        margin-bottom: 20px;
+        text-align: center;
+        margin-bottom: 10px;
         color: #fff;
+}
+
+.details_headers{
+    position: absolute;
+    text-align: left;
+}
+
+
+a.session_hub, a.todo_list {
+    display: block;               /* Block display to stack the buttons vertically */
+    width: 200px;                 /* Set a consistent width for both buttons */
+    padding: 10px 30px;           /* Adjust padding for the capsule effect */
+    border: 2px solid black;      /* Black border */
+    border-radius: 20px;          /* Large enough to create rounded sides */
+    background-color: white;      /* White background */
+    color: black;                 /* Black text */
+    text-decoration: none;        /* Removes underline */
+    font-size: 16px;              /* Adjusts font size */
+    margin: 10px auto;            /* Adds vertical spacing and centers horizontally */
+    text-align: center;           /* Centers text inside the button */
+    transition: background-color 0.3s, color 0.3s;  /* Smooth transition */
+}
+
+/* Hover effect - invert colors */
+a.session_hub:hover, a.todo_list:hover {
+    background-color: black;   /* Background becomes black */
+    color: white;              /* Text becomes white */
+}
+
+.menu_buttons_dashboard {
+    display: flex;
+    flex-direction: column;    /* Arrange items in a vertical stack */
+    justify-content: center;   /* Center vertically */
+    align-items: center;       /* Center horizontally */
+    position: absolute;
+    top: 50px;
+    left: 50%;                 /* Move to the horizontal center */
+    transform: translateX(-50%); /* Adjust for perfect centering */
 }
