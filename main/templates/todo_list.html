@@ -1,39 +1,47 @@
 {% extends 'base.html' %}
 
+
+
 {% block content %}
 
+<div class="todo_list_home"></div>
+    <!-- Task Form for adding new tasks -->
+    <div class="task_background">
+            <div class="task_container">
+                <h2 class="todo_header">To-Do List</h2>
+                <form id="add-task-form" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="task_name" placeholder="Task Name" required>
+                    <div class="From_container">
+                        <input type="date" name="start_date" placeholder="Date" required>
+                        <input type="time" name="start_time" placeholder="Time" required>
+                    </div>
+                    <div class="To_container">
+                        <input type="date" name="end_date" placeholder="Date" required>
+                        <input type="time" name="end_time" placeholder="Time" required>
+                    </div>
+                    <button class="submit_button" type="submit">Add Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-<!-- Task Form for adding new tasks -->
- <div class="task_background">
-        <div class="task_container">
-            <h2 class="todo_header">To-Do List</h2>
-            <form id="add-task-form" method="POST">
-                {% csrf_token %}
-                <input type="text" name="task_name" placeholder="Task Name" required>
-                <div class="From_container">
-                    <input type="date" name="start_date" placeholder="Date" required>
-                    <input type="time" name="start_time" placeholder="Time" required>
-                </div>
-                <div class="To_container">
-                    <input type="date" name="end_date" placeholder="Date" required>
-                    <input type="time" name="end_time" placeholder="Time" required>
-                </div>
-                <button type="submit">Add Task</button>
-            </form>
+    <!-- Task List Display -->
+    <div class="taskl_background">
+        <div class="taskl_container">
+        <h2 class="taskl_header">Task</h2>
+            <ul class="task-list" id="task-list">
+                {% for task in tasks %}
+                <li id="task-{{ task.id }}">
+                    <input type="checkbox" class="task-complete-checkbox" data-task-id="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
+                    <span>{{ task.task_name }} - {{ task.start_date }} {{ task.start_time }} to {{ task.end_date }} {{ task.end_time }}</span>
+                    <button class="delete_button" data-task-id="{{ task.id }}">Delete</button>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 </div>
-
-<!-- Task List Display -->
-<ul id="task-list">
-    {% for task in tasks %}
-    <li id="task-{{ task.id }}">
-        <input type="checkbox" class="task-complete-checkbox" data-task-id="{{ task.id }}" {% if task.is_complete %}checked{% endif %}>
-        <span>{{ task.task_name }} - {{ task.start_date }} {{ task.start_time }} to {{ task.end_date }} {{ task.end_time }}</span>
-        <button class="delete-task" data-task-id="{{ task.id }}">Delete</button>
-    </li>
-    {% endfor %}
-</ul>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
