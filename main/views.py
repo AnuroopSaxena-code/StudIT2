@@ -3,9 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import SignUpForm,TaskForm
-from .models import Student,FriendRequest, Friendship, Session, Message, Task
+from .models import Student, Session, Message, Task, Profile
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.urls import reverse
 from django.db.models import Q
 from django.http import JsonResponse
@@ -66,49 +66,6 @@ def dashboard_view(request):
 def leaderboard_view(request):
     return render(request, 'leaderboard.html')
 
-@login_required
-def send_friend_request(request):
-    if request.method == "POST":
-        username = request.POST.get('username')
-        to_user = get_object_or_404(User, username=username)
-        if request.user != to_user:
-            friendship, created = Friendship.objects.get_or_create(from_user=request.user, to_user=to_user, defaults={'status': 'pending'})
-            if not created:
-                messages.warning(request, "Friend request already sent.")
-            else:
-                messages.success(request, "Friend request sent.")
-    return redirect('friends')
-
-@login_required
-def friends_view(request):
-    sent_requests = Friendship.objects.filter(from_user=request.user, status='pending')
-    received_requests = Friendship.objects.filter(to_user=request.user, status='pending')
-    friends = request.user.profile.friends.all()  # Assuming a profile model
-
-    context = {
-        'sent_requests': sent_requests,
-        'received_requests': received_requests,
-        'friends': friends,
-        'user': request.user,
-    }
-    return render(request, 'friends.html', context)
-
-@login_required
-def accept_friend_request(request, request_id):
-    friendship = get_object_or_404(Friendship, id=request_id)
-    if friendship.to_user == request.user:
-        friendship.status = 'accepted'
-        friendship.save()
-        messages.success(request, "Friend request accepted.")
-    return redirect('friends')
-
-@login_required
-def decline_friend_request(request, request_id):
-    friendship = get_object_or_404(Friendship, id=request_id)
-    if friendship.to_user == request.user:
-        friendship.delete()  # Simply delete the request
-        messages.success(request, "Friend request declined.")
-    return redirect('friends')
 
 def session_hub(request):
     if request.method == "POST":
