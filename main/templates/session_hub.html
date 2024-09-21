@@ -69,12 +69,18 @@
                 <strong>End Time:</strong> {{ session.end_time }}<br>
                 <strong>Status:</strong> {{ session.is_active|yesno:"Active,Expired" }}<br>
 
-                <!-- Message button to send a message to the session owner -->
+                <!-- Check if the current user is NOT the session owner -->
+                {% if request.user != session.user %}
+                <!-- Message form for others to message the session owner -->
                 <form method="POST" action="{% url 'send_message_to_user' session.user.id %}">
                     {% csrf_token %}
                     <textarea name="message_content" placeholder="Send a message to {{ session.user.username }}" required></textarea>
                     <button type="submit">Send Message</button>
                 </form>
+                {% else %}
+                <!-- Notify session owner they cannot message themselves -->
+                <p>You are the session owner. Others can message you, but you cannot message yourself.</p>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
