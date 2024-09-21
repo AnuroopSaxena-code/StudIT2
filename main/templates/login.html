@@ -14,8 +14,12 @@
         <h2 class="login-header">Login</h2>
         <form method="POST">
             {% csrf_token %}
+            <div class="details">
             <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="password-container">
             <input type="password" name="password" placeholder="Password" required>
+            </div>
             <button type="submit" class="login-button">Login</button>
         </form>
         {% if error %}

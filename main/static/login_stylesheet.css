@@ -8,6 +8,8 @@
 body {
     font-family: 'Figtree';
     src: url(./assets/Figtree-Regular.ttf);
+    background: url(./assets/login_bg.jpg);
+    background-size: cover;
     height: 100vh;
     margin: 0;
     display: flex;
@@ -48,9 +50,10 @@ body {
 
 /* Full-screen background */
 .login-background {
-    background: url(./assets/login_bg.jpg) no-repeat center center fixed;
-    background-size: cover;
     position: absolute;
+    background-color: rgba(0,0,0,0.69);
+    height: 100%;
+    width:100%;
     top: 0;
     left: 0;
     right: 0;
@@ -70,6 +73,13 @@ body {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
     border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Glow effect on hover */
+.login-container:hover {
+    box-shadow: 0px 0px 15px 5px rgba(95, 68, 176, 0.7), 0px 0px 30px 10px rgba(0, 1, 63, 0.5);
+    border-color: rgba(95, 68, 176, 0.7);
 }
 
 .login-header {
@@ -123,3 +133,61 @@ input::placeholder {
     text-decoration: underline;
 }
 
+/* Username input styling */
+.details input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+}
+
+.details input[type="text"]::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state for input */
+.details input[type="text"]:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Add animation effect */
+.details input[type="text"]:hover {
+    background-color: #444; /* Background change on hover */
+    border: 2px solid #5f44b0; /* Border color on hover */
+}
+
+.password-container input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.password-container input::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state */
+.password-container input:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Hover effect */
+.password-container input:hover {
+    background-color: #444;
+    border: 2px solid #5f44b0;
+}
