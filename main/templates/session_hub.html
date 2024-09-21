@@ -9,14 +9,14 @@
         {% csrf_token %}
         <label for="title">Title:</label>
         <input type="text" name="title" required>
-        
+
         <label for="purpose">Purpose:</label>
         <select name="purpose" required>
             <option value="Academics">Academics</option>
             <option value="CodeSesh">CodeSesh</option>
             <option value="Other">Other</option>
         </select>
-        
+
         <label for="branch">Branch:</label>
         <select name="branch" required>
             <option value="CSE Core">CSE Core</option>
@@ -28,19 +28,19 @@
             <option value="Biotechnology">Biotechnology</option>
             <option value="Any">Any</option>
         </select>
-        
+
         <label for="start_date">Start Date:</label>
         <input type="date" name="start_date" required>
-        
+
         <label for="start_time">Start Time:</label>
         <input type="time" name="start_time" required>
-        
+
         <label for="end_date">End Date:</label>
         <input type="date" name="end_date" required>
-        
+
         <label for="end_time">End Time:</label>
         <input type="time" name="end_time" required>
-        
+
         <button type="submit">Create Session</button>
     </form>
 </div>
@@ -69,17 +69,12 @@
                 <strong>End Time:</strong> {{ session.end_time }}<br>
                 <strong>Status:</strong> {{ session.is_active|yesno:"Active,Expired" }}<br>
 
-                <!-- Check if the current user is NOT the session owner -->
-                {% if request.user != session.user %}
-                <!-- Message form for others to message the session owner -->
-                <form method="POST" action="{% url 'send_message_to_user' session.user.id %}">
-                    {% csrf_token %}
-                    <textarea name="message_content" placeholder="Send a message to {{ session.user.username }}" required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
+                {% if session.is_active %}
+                    <!-- Show message link only if the session is active -->
+                    <a href="{% url 'message_user' session.user.username %}">Message {{ session.user.username }}</a>
                 {% else %}
-                <!-- Notify session owner they cannot message themselves -->
-                <p>You are the session owner. Others can message you, but you cannot message yourself.</p>
+                    <!-- Do not display message link if the session is expired -->
+                    <p>Session Expired - Messaging Disabled</p>
                 {% endif %}
             </li>
         {% endfor %}
