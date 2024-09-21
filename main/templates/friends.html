@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Send Friend Request</h2>
+<form method="POST" action="{% url 'send_friend_request' %}">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter username" required>
+    <button type="submit">Send Request</button>
+</form>
+
+<h2>Pending Friend Requests</h2>
+<ul>
+    {% for request in sent_requests %}
+        <li>
+            {{ request.to_user.username }} - Pending
+        </li>
+    {% empty %}
+        <li>No pending requests.</li>
+    {% endfor %}
+</ul>
+
+<h2>Received Friend Requests</h2>
+<ul>
+    {% for request in received_requests %}
+        <li>
+            {{ request.from_user.username }}
+            <form action="{% url 'accept_friend_request' request.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Accept</button>
+            </form>
+            <form action="{% url 'decline_friend_request' request.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Decline</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No received requests.</li>
+    {% endfor %}
+</ul>
+
+<h2>Your Friends</h2>
+<ul>
+    {% for friend in friends %}
+        <li>{{ friend.user.username }}</li>
+    {% empty %}
+        <li>No friends yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

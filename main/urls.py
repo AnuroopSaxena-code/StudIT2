@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import home, login_view, signup_view, dashboard_view, logout_view, leaderboard_view, session_hub
 from .views import send_message, message_view, send_message_to_user, toggle_task_complete, edit_task, delete_task, todo_list_view, add_task
+from .views import friends_view, send_friend_request, accept_friend_request, decline_friend_request
+
 urlpatterns = [
     path('', home, name='home'),
     path('login/', login_view, name='login'),
@@ -18,4 +20,8 @@ urlpatterns = [
     path('todo/delete/<int:task_id>/', delete_task, name='delete_task'),
     path('add-task/', add_task, name='add_task'),
     path('message/<str:username>/', send_message_to_user, name='message_user'),
+    path('friends/', friends_view, name='friends'),
+    path('send_friend_request/', send_friend_request, name='send_friend_request'),
+    path('accept_request/<int:request_id>/', accept_friend_request, name='accept_friend_request'),
+    path('decline_request/<int:request_id>/', decline_friend_request, name='decline_friend_request'),
 ]
