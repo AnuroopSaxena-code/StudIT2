@@ -21,5 +21,5 @@ urlpatterns = [
     path('todo/edit/<int:task_id>/', edit_task, name='edit_task'),
     path('todo/delete/<int:task_id>/', delete_task, name='delete_task'),
     path('add-task/', add_task, name='add_task'),
-    path('message/<int:user_id>/', send_message_to_user, name='message_user'),
+    path('message/<str:username>/', send_message_to_user, name='message_user'),
 ]
