@@ -175,3 +175,17 @@ def chat_view(request, user_id):
         (Q(sender=user) & Q(recipient=request.user))
     ).order_by('timestamp')
     return render(request, 'chat.html', {'messages': messages, 'user': user})
+
+@login_required
+def send_message_to_user(request, user_id):
+    recipient = get_object_or_404(User, id=user_id)
+
+    if request.method == 'POST':
+        message_content = request.POST.get('message_content')
+
+        if message_content:
+            # Create and save the message
+            message = Message(sender=request.user, recipient=recipient, content=message_content)
+            message.save()
+
+        return redirect('session_hub')  # Redirect back to the session hub after sending

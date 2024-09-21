@@ -68,6 +68,13 @@
                 <strong>End Date:</strong> {{ session.end_date }}<br>
                 <strong>End Time:</strong> {{ session.end_time }}<br>
                 <strong>Status:</strong> {{ session.is_active|yesno:"Active,Expired" }}<br>
+
+                <!-- Message button to send a message to the session owner -->
+                <form method="POST" action="{% url 'send_message_to_user' session.user.id %}">
+                    {% csrf_token %}
+                    <textarea name="message_content" placeholder="Send a message to {{ session.user.username }}" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
             </li>
         {% endfor %}
     </ul>
