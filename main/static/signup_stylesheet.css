@@ -147,3 +147,39 @@ input::placeholder {
                  0 0 20px rgba(255, 255, 255, 0.6), 
                  0 0 30px rgba(255, 255, 255, 0.4);
 }
+
+.hidden-label {
+    display: none; /* Hide the label */
+}
+
+.branch select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #7c7c7c;
+    font-size: 14px;
+    appearance: none; /* Remove default arrow */
+}
+
+.branch select.placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+.branch select:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background: #444; /* Change background on focus */
+}
+
+/* For a better UX, you can also add styles for the first option */
+.branch select option {
+    color: #888; /* Placeholder color for first option */
+}
+
+.branch select option:not(:first-child) {
+    color: white; /* Normal option color */
+}
+

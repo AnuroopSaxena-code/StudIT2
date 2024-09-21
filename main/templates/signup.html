@@ -31,8 +31,10 @@
                 <input type="text" name="registration_no" placeholder="Registration No." value="{{ form.registration_no.value|default:'' }}" required>
             </div>
             <div class="branch">
-                {{ form.branch.label }} {{ form.branch }}<br>
-            </div> 
+                <label class="hidden">{{ form.branch.label }}</label>
+                {{ form.branch}}
+            </div>
+            
             <div>
                 <label class="hidden">{{ form.enrollment_year.label }}</label> 
                 <input type="number" name="enrollment_year" placeholder="Enrollment Year" value="{{ form.enrollment_year.value|default:'' }}" required>
