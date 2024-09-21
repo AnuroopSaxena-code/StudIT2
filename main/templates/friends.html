@@ -1,47 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Friend Requests</h2>
-
-<!-- Form to send a friend request -->
-<h3>Send a Friend Request</h3>
-<form method="post" action="{% url 'send_friend_request' %}">
+<h2>Send Friend Request</h2>
+<form method="POST" action="{% url 'send_friend_request' %}">
     {% csrf_token %}
     <input type="text" name="username" placeholder="Enter username" required>
-    <button type="submit">Send Friend Request</button>
+    <button type="submit">Send Request</button>
 </form>
 
-<!-- Display Pending Requests You've Sent -->
-<h3>Pending Requests You've Sent</h3>
+<h2>Pending Friend Requests</h2>
 <ul>
     {% for request in sent_requests %}
-        <li>To {{ request.to_user.username }} ({{ request.status }})</li>
-    {% empty %}
-        <li>No pending requests sent.</li>
-    {% endfor %}
-</ul>
-
-<!-- Display Received Friend Requests -->
-<h3>Received Friend Requests</h3>
-<ul>
-    {% for request in received_requests %}
-        <li>From {{ request.from_user.username }}
-            <a href="{% url 'accept_friend_request' request.id %}">Accept</a> |
-            <a href="{% url 'decline_friend_request' request.id %}">Decline</a>
+        <li>
+            {{ request.to_user.username }} - Pending
         </li>
     {% empty %}
-        <li>No friend requests received.</li>
+        <li>No pending requests.</li>
     {% endfor %}
 </ul>
 
-<!-- Display Your Friends -->
-<h3>Your Friends</h3>
+<h2>Received Friend Requests</h2>
+<ul>
+    {% for request in received_requests %}
+        <li>
+            {{ request.from_user.username }}
+            <form action="{% url 'accept_friend_request' request.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Accept</button>
+            </form>
+            <form action="{% url 'decline_friend_request' request.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Decline</button>
+            </form>
+        </li>
+    {% empty %}
+        <li>No received requests.</li>
+    {% endfor %}
+</ul>
+
+<h2>Your Friends</h2>
 <ul>
     {% for friend in friends %}
-        <li>{{ friend.username }}</li>
+        <li>{{ friend.user.username }}</li>
     {% empty %}
-        <li>You have no friends yet.</li>
+        <li>No friends yet.</li>
     {% endfor %}
 </ul>
-
 {% endblock %}

@@ -34,32 +34,15 @@ class Session(models.Model):
         now = timezone.now()
         return self.start_datetime <= now <= self.end_datetime
 
-class FriendRequest(models.Model):
-    from_user = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)
-    to_user = models.ForeignKey(User, related_name='received_requests', on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, default='pending')  # status can be 'pending', 'accepted', or 'declined'
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.from_user.username} to {self.to_user.username} ({self.status})"
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    friends = models.ManyToManyField('self', symmetrical=False, related_name='friend_profiles')
     registration_number = models.CharField(max_length=9)
     branch = models.CharField(max_length=100)
-    friends = models.ManyToManyField('self', symmetrical=False, related_name='friend_set', blank=True)
-    
+
     def __str__(self):
         return self.user.username
-
-class Friendship(models.Model):
-    from_user = models.ForeignKey(User, related_name='friend_requests_sent', on_delete=models.CASCADE)
-    to_user = models.ForeignKey(User, related_name='friend_requests_received', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=10, default='pending', choices=(('pending', 'Pending'), ('accepted', 'Accepted')))
-
-    def __str__(self):
-        return f"{self.from_user.username} -> {self.to_user.username} ({self.status})"
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
@@ -82,3 +65,11 @@ class Task(models.Model):
 
     def __str__(self):
         return self.task_name
+
+class FriendRequest(models.Model):
+    from_user = models.ForeignKey(User, related_name='sent_requests', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='received_requests', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.from_user} to {self.to_user}"
