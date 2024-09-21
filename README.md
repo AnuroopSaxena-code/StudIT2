@@ -15,8 +15,13 @@ The central hub for all your study and social needs.
 - Database in SQLite
 
 # Setup and Installation
-1. Clone the repository
-
+In terminal:
+use env\scripts\activate
+1. Install Django (pip install django)
+2. Install channels (pip install channels)
+3. run python manage.py makemigrations
+4. run python manage.py migrate
+5. then python manage.py runserver to see the finsihed product
 # Contributors
 - Anuroop Saxena
 - Ajitesh Borah
