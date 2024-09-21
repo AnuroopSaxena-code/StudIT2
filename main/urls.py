@@ -19,7 +19,7 @@ urlpatterns = [
     path('todo/', todo_list_view, name='todo_list'),
     path('todo/toggle-task-complete/', toggle_task_complete, name='toggle_task_complete'),
     path('todo/edit/<int:task_id>/', edit_task, name='edit_task'),
-    path('todo/delete-task/', delete_task, name='delete_task'),
+    path('todo/delete/<int:task_id>/', delete_task, name='delete_task'),
     path('add-task/', add_task, name='add_task'),
     path('message/<str:username>/', send_message_to_user, name='message_user'),
 ]

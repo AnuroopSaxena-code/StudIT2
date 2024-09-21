@@ -99,7 +99,7 @@
             button.addEventListener('click', function() {
                 const taskId = this.getAttribute('data-task-id');
                 
-                fetch("{% url 'delete_task' %}", {
+                fetch(`/todo/delete/${taskId}/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -110,8 +110,7 @@
                     })
                 }).then(response => {
                     if (response.ok) {
-                        // Remove task from the list
-                        document.getElementById('task-' + taskId).remove();
+                        this.parentElement.remove();
                     } else {
                         alert('Failed to delete task');
                     }
