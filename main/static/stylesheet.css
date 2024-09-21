@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url(./assets/bg_image.jpg);
+    background-size: cover;
+    background-color: grey;
+    height:100%;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100wh;
+    height: 100vh;
+    padding: 0px;
+}
+
+.overlays{
+    position:absolute;
+    align-items: center;
+    align-content: center;
+    background-color: rgba(0,0,0,0.69);
+    height: 100%;
+    width: 100%;
+}
+
+.StudIT {
+    position: absolute;
+    font-family: "Figtree";
+    src: url(./assets/Figtree-Light.ttf);
+    top: 10px;
+    left: 30px;
+    font-size: 36px; /* Adjust size as needed */
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Animation for grow and text glow */
+}
+
+.StudIT a {
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Smooth animation for the link */
+}
+
+/* Glow and grow effect on hover */
+.StudIT:hover {
+    transform: scale(1.1); /* Grows the element slightly */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Glowing white shadow */
+                 0 0 20px rgba(255, 255, 255, 0.6), 
+                 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.StudIT a:hover {
+    transform: scale(1.1); /* Grows the link slightly */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Glowing white shadow */
+                 0 0 20px rgba(255, 255, 255, 0.6), 
+                 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+
+.Welcome_message {
+    list-style: none;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 600px;
+    top: 300px;
+    left: 460px;
+    transition: transform 0.3s ease;
+}
+
+
+.Welcome_message:hover {
+    transform: scale(1.1);
+}
+
+.Welcome_message a{
+    color: white;
+    text-decoration: none;
+}
+
+.M1{
+    font-family: "Monarque";
+    font-style: italic;
+    font-weight: 4s00;
+    color: white;
+    font-size: 86px;
+    src:url(./assets/Monarque/Monarque-Light.otf);
+    text-align: center;
+}
+
+.M2{
+    font-family: "Sequel-Sans";
+    src:url(./assets/Sequel_sans_ttf/Sequel\ Sans\ Black\ Disp.ttf);
+    font-weight: 100;
+    font-style:normal;
+    font-size: 86px;
+    color: white;
+    text-align: center;
+}
+
+.ptxt{
+    position: absolute;
+    top:600px;
+    left:580px;
+    font-family: "Figtree";
+    src: url(./assets/Figtree-Light.ttf);
+    color: white;
+}
+
+.Login {
+    position: absolute;
+    top: 530px;
+    left: 720px; /* Positions the Login button 100px from the right */
+    list-style: none;;
+}
+
+.Login a {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid black;
+    border-radius: 25px; /* Rounded rectangle */
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.Login a:hover {
+    background-color: black;
+    color: white;
+}
+
+/* Sign Up Button */
+.Sign_up {
+    position: absolute;
+    top: 10px;
+    right: 30px; /* Positions the Sign Up button 10px from the right */
+    list-style: none;
+}
+
+.Sign_up a {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid black;
+    border-radius: 25px; /* Rounded rectangle */
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.Sign_up a:hover {
+    background-color: black;
+    color: white;
+}
