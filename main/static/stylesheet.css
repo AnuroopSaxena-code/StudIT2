@@ -355,6 +355,42 @@ body{
     right: 0; /* Slide in */
 }
 
+/* Style for other menu links */
+.menu-links {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-links li {
+    margin-bottom: 20px;
+}
+
+.menu-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.close-menu {
+    position: absolute; /* Position it relative to the menu */
+    top: 20px;         /* Distance from the top */
+    right: 20px;       /* Distance from the right */
+    font-size: 2rem;   /* Size of the cross */
+    color: white;      /* Color of the cross */
+    background: none;  /* No background */
+    border: none;      /* No border */
+    cursor: pointer;   /* Pointer cursor on hover */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.close-menu:hover {
+    color: red;        /* Change color on hover for effect */
+    transform: rotate(90deg); /* Rotate the button */
+}
+
+
 /* Style for the Logout button */
 .Logout {
     display: inline-block;
@@ -375,24 +411,6 @@ body{
 .Logout:hover {
     background-color: white;
     color: black;
-}
-
-/* Style for other menu links */
-.menu-links {
-    width: 100%;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.menu-links li {
-    margin-bottom: 20px;
-}
-
-.menu-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
 }
 
 
@@ -545,8 +563,7 @@ a.out_session_hub:hover, a.out_todo_list:hover {
 .out_menu_buttons_dashboard {
     display: flex;                     /* Ensure buttons are side by side */
     justify-content: center;           /* Align buttons in the middle horizontally */
-    gap: 20px;                         /* Gap between the buttons */
+    gap: 5px;                         /* Gap between the buttons */
     margin-top: 20px;
 }
 
-/*hello*/

@@ -34,6 +34,7 @@
             {% endblock %}
         </main>
         <div class="menu">
+            <button class="close-menu" onclick="closeMenu()">×</button>
             <ul class="menu-links">
                 <li><a class="Logout" href="{% url 'logout' %}">Logout</a></li>
             </ul>
@@ -57,6 +58,11 @@
         }
     });
 });
+
+function closeMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.remove('active'); // Remove the active class to close the menu
+}
     </script>
 </body>
 </html>
