@@ -129,24 +129,24 @@ def session_hub(request):
 
 @login_required
 def messaging_view(request):
-    messages = Message.objects.filter(receiver=request.user).order_by('-timestamp')
+    messages = Message.objects.filter(recipient=request.user).order_by('-timestamp')
     return render(request, 'messaging.html', {'messages': messages})
 
 @login_required
 def send_message(request):
     if request.method == 'POST':
-        receiver_id = request.POST['receiver_id']
+        recipient = request.POST['recipient_id']
         content = request.POST['content']
-        receiver = User.objects.get(id=receiver_id)
-        Message.objects.create(sender=request.user, receiver=receiver, content=content)
+        recipient = User.objects.get(id=recipient)
+        Message.objects.create(sender=request.user, recipient=recipient, content=content)
         return redirect('messaging')
     
 @login_required
 def chat_view(request, user_id):
     user = User.objects.get(id=user_id)
     messages = Message.objects.filter(
-        (Q(sender=request.user) & Q(receiver=user)) | 
-        (Q(sender=user) & Q(receiver=request.user))
+        (Q(sender=request.user) & Q(recipient=user)) | 
+        (Q(sender=user) & Q(recipient=request.user))
     ).order_by('timestamp')
     return render(request, 'chat.html', {'messages': messages, 'user': user})
 
@@ -175,3 +175,13 @@ def message_view(request):
     messages = Message.objects.filter(recipient=request.user).order_by('-timestamp')
     
     return render(request, 'message.html', {'messages': messages})
+
+def message_history(request):
+    user = request.user
+    received_messages = Message.objects.filter(recipient=user).order_by('-timestamp')
+    sent_messages = Message.objects.filter(sender=user).order_by('-timestamp')
+    context = {
+        'received_messages': received_messages,
+        'sent_messages': sent_messages,
+    }
+    return render(request, 'your_template.html', context)

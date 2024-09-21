@@ -1,13 +1,16 @@
-<h1>Messages</h1>
-<ul>
+<h2>Messaging</h2>
+<div id="message-history">
     {% for message in messages %}
-        <li>{{ message.sender }}: {{ message.content }} ({{ message.timestamp }})</li>
+        <div class="message">
+            <p><strong>{{ message.sender.username }}:</strong> {{ message.content }}</p>
+            <p>{{ message.timestamp }}</p>
+        </div>
     {% endfor %}
-</ul>
+</div>
 
 <form method="POST" action="{% url 'send_message' %}">
     {% csrf_token %}
-    <input type="hidden" name="receiver_id" value="{{ receiver.id }}"> <!-- Assuming you have the receiver's info -->
-    <textarea name="content" required></textarea>
-    <button type="submit">Send Message</button>
+    <input type="text" name="recipient" placeholder="Recipient Username" required>
+    <textarea name="content" placeholder="Type your message" required></textarea>
+    <button type="submit">Send</button>
 </form>
