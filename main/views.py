@@ -218,13 +218,21 @@ def todo_list_view(request):
     }
     return render(request, 'todo_list.html', context)
 
-@login_required
-def toggle_task_complete(request, task_id):
-    task = Task.objects.get(id=task_id)
-    if task.user == request.user:
-        task.completed = not task.completed
-        task.save()
-    return redirect('todo_list')
+@csrf_exempt
+def toggle_task_complete(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        task_id = data.get('task_id')
+        is_complete = data.get('is_complete')
+
+        # Get the task by id and update its status
+        try:
+            task = Task.objects.get(id=task_id)
+            task.is_complete = is_complete
+            task.save()
+            return JsonResponse({'status': 'success'})
+        except Task.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Task not found'}, status=404)
 
 @login_required
 def edit_task(request, task_id):
@@ -242,12 +250,15 @@ def edit_task(request, task_id):
 
     return render(request, 'edit_task.html', {'form': form})
 
-@login_required
 def delete_task(request, task_id):
-    task = Task.objects.get(id=task_id)
-    if task.user == request.user:
-        task.delete()
-    return redirect('todo_list')
+    if request.method == 'POST':
+        try:
+            task = Task.objects.get(id=task_id)
+            task.delete()
+            return JsonResponse({'success': True})
+        except Task.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Task not found'})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
 
 @csrf_exempt  # Make sure to handle CSRF properly in production
 def add_task(request):
