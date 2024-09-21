@@ -69,16 +69,21 @@
         {% for session in all_sessions %}
         <li>
             {{ session.title }} - {{ session.purpose }} - {{ session.branch }}
+            
+            <!-- Form to message the session creator -->
+            {% if request.user != session.user %}
             <form method="POST" action="{% url 'send_message_to_user' session.user.id %}">
                 {% csrf_token %}
                 <input type="text" name="message" placeholder="Type your message..." required>
                 <button type="submit">Message Creator</button>
             </form>
+            {% else %}
+            <p>You cannot message yourself (session creator).</p>
+            {% endif %}
         </li>
         {% empty %}
         <li>No sessions available.</li>
         {% endfor %}
     </ul>
 </div>
-
 {% endblock %}

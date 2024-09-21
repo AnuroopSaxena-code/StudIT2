@@ -147,21 +147,25 @@ def chat_view(request, user_id):
 
 @login_required
 
-def send_message_to_user(request, username):
-    recipient = get_object_or_404(User, username=username)
-
+def send_message_to_user(request, user_id):
+    # Fetch the recipient user based on the passed user_id
+    recipient = get_object_or_404(User, id=user_id)
+    
     if request.method == 'POST':
-        message_content = request.POST.get('message')
-        if message_content:
-            # Create and save the message
+        # Extract the message content from the POST request
+        content = request.POST.get('message')
+        
+        if content:
+            # Create the message entry in the database
             Message.objects.create(
-                sender=request.user,
-                recipient=recipient,
-                content=message_content
+                sender=request.user,  # The logged-in user
+                recipient=recipient,  # The user who will receive the message
+                content=content
             )
-            return redirect('session_hub')  # Redirect to the inbox after sending the message
-
-    return render(request, 'message.html', {'recipient': recipient})
+        return redirect('session_hub')  # Redirect to session hub after sending the message
+    
+    # In case the request method is GET, render the message form page (if required)
+    return render(request, 'message_form.html', {'recipient': recipient})
 
 @login_required    
 def todo_list_view(request):
