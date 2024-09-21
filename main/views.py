@@ -164,7 +164,7 @@ def message_view(request):
             message.save()
         except User.DoesNotExist:
             # Handle the case where the recipient does not exist (optional)
-            return render(request, 'your_app/message.html', {
+            return render(request, 'message.html', {
                 'messages': Message.objects.filter(recipient=request.user).order_by('-timestamp'),
                 'error': 'Recipient does not exist.'
             })
@@ -174,4 +174,4 @@ def message_view(request):
     # Get messages for the logged-in user
     messages = Message.objects.filter(recipient=request.user).order_by('-timestamp')
     
-    return render(request, 'your_app/message.html', {'messages': messages})
+    return render(request, 'message.html', {'messages': messages})
