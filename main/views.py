@@ -260,22 +260,34 @@ def delete_task(request, task_id):
 @csrf_exempt  # Make sure to handle CSRF properly in production
 def add_task(request):
     if request.method == 'POST':
-        task_name = request.POST.get('task_name')
-        start_date = request.POST.get('start_date')
-        start_time = request.POST.get('start_time')
-        end_date = request.POST.get('end_date')
-        end_time = request.POST.get('end_time')
+        # Get the JSON data from the request body
+        data = json.loads(request.body)
+        task_name = data.get('task_name')
+        start_date = data.get('start_date')
+        start_time = data.get('start_time')
+        end_date = data.get('end_date')
+        end_time = data.get('end_time')
 
         # Create and save the new task
-        Task.objects.create(
-            name=task_name,
+        task = Task.objects.create(
+            task_name=task_name,  # Ensure the field name matches your model
             start_date=start_date,
             start_time=start_time,
             end_date=end_date,
             end_time=end_time,
             user=request.user  # Assuming you want to associate it with the logged-in user
         )
-        return redirect('todo_list')  # Redirect to the To-Do List page after adding
+
+        # Return a JSON response with the new task's ID and details
+        return JsonResponse({
+            'id': task.id,
+            'task_name': task.task_name,
+            'start_date': task.start_date,
+            'start_time': task.start_time,
+            'end_date': task.end_date,
+            'end_time': task.end_time,
+            'success': True
+        })
 
     # If GET request, show the to-do list with current tasks
     tasks = Task.objects.filter(user=request.user)  # Filter tasks for the logged-in user
