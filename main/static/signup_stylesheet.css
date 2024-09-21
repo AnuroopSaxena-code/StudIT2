@@ -21,6 +21,9 @@ body {
 /* Full-screen background */
 .signup-background {
     position: absolute;
+    background-color: rgba(0,0,0,0.69);
+    height: 100%;
+    width: 100%;
     top: 0;
     left: 0;
     right: 0;
@@ -28,6 +31,7 @@ body {
     z-index: -1;
     opacity: 0.9;
 }
+
 
 /* Centered signup form */
 .signup-container {
@@ -40,7 +44,17 @@ body {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
     border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
+
+/* Glow effect on hover */
+.signup-container:hover {
+    box-shadow: 0px 0px 15px 5px rgba(95, 68, 176, 0.7), 0px 0px 30px 10px rgba(0, 1, 63, 0.5);
+    border-color: rgba(95, 68, 176, 0.7);
+}
+
+
+
 
 .signup-header {
     font-size: 28px;
@@ -183,3 +197,177 @@ input::placeholder {
     color: white; /* Normal option color */
 }
 
+.hidden {
+    display: none;
+}
+
+/* Username input styling */
+.username-container input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+}
+
+.username-container input[type="text"]::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state for input */
+.username-container input[type="text"]:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Add animation effect */
+.username-container input[type="text"]:hover {
+    background-color: #444; /* Background change on hover */
+    border: 2px solid #5f44b0; /* Border color on hover */
+}
+
+/* Hide the label */
+.hidden {
+    display: none;
+}
+
+/* Email input styling */
+.email-container input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+}
+
+.email-container input[type="email"]::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state for input */
+.email-container input[type="email"]:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Add animation effect */
+.email-container input[type="email"]:hover {
+    background-color: #444; /* Background change on hover */
+    border: 2px solid #5f44b0; /* Border color on hover */
+}
+
+
+/* Hide the label */
+.hidden {
+    display: none;
+}
+
+/* Password input styling */
+.password-container input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.password-container input::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state */
+.password-container input:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Hover effect */
+.password-container input:hover {
+    background-color: #444;
+    border: 2px solid #5f44b0;
+}
+
+/* Hide the label */
+.hidden {
+    display: none;
+}
+
+/* Registration number input styling */
+.regno-container input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.regno-container input::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state */
+.regno-container input:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Hover effect */
+.regno-container input:hover {
+    background-color: #444;
+    border: 2px solid #5f44b0;
+}
+
+/* Hide the label */
+.hidden {
+    display: none;
+}
+
+/* Enrollment year input styling */
+.enrollment_year-container input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.enrollment_year-container input::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state */
+.enrollment_year-container input:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Hover effect */
+.enrollment_year-container input:hover {
+    background-color: #444;
+    border: 2px solid #5f44b0;
+}
