@@ -2,9 +2,13 @@
 
 {% block content %}
 <div class="dashboard">
-    <h1>Welcome, {{ user.username }}</h1>
-    <p>Registration Number: {{ registration_no }}</p>
-    <p>Branch: {{ branch }}</p>
+    <div class="Dashboard_background">
+        <div class="Dashboard_Box">
+            <h2 class="dashboard-header">Dashboard</h2>
+            <p class="Reg_No">Registration Number: {{ registration_no }}</p>
+            <p class="Branch_Name">Branch: {{ branch }}</p>
+        </div>
+    </div>
 
     <div class="buttons">
         {% if user.is_authenticated %}
