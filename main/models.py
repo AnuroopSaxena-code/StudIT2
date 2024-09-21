@@ -13,26 +13,15 @@ class Student(models.Model):
         return self.user.username
     
 class Session(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    purpose = models.CharField(max_length=20)
-    branch = models.CharField(max_length=50)
+    purpose = models.CharField(max_length=100)
+    branch = models.CharField(max_length=100)
     start_date = models.DateField()
     start_time = models.TimeField()
     end_date = models.DateField()
     end_time = models.TimeField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    @property
-    def start_datetime(self):
-        return timezone.make_aware(datetime.combine(self.start_date, self.start_time))
-
-    @property
-    def end_datetime(self):
-        return timezone.make_aware(datetime.combine(self.end_date, self.end_time))
-
-    def is_active(self):
-        now = timezone.now()
-        return self.start_datetime <= now <= self.end_datetime
+    is_active = models.BooleanField(default=True)
 
 
 class Profile(models.Model):
