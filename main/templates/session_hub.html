@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>SessionHub</h2>
+<h2 class="SessionHub">This is SessionHub</h2>
 
 <!-- Form to Create a Session -->
-<div>
+ <div class="session-hub-background"></div>
+<div class="session-hub-container">
     <h3>Create Session</h3>
     <form method="POST">
         {% csrf_token %}
-        <label for="title">Title:</label>
-        <input type="text" name="title" required>
+        <div class="sb-t">
+            <label class="hidden" for="title"></label>
+            <input type="text" name="title" placeholder="Title" required>
+        </div>
 
-        <label for="purpose">Purpose:</label>
+        <div class="sb-p">
+        <label class="hidden" for="purpose"></label>
         <select name="purpose" required>
             <option value="Academics">Academics</option>
             <option value="CodeSesh">CodeSesh</option>
             <option value="Other">Other</option>
         </select>
+        </div>
 
-        <label for="branch">Branch:</label>
+        <div class="branch">
+        <label class="hidden" for="branch"></label>
         <select name="branch" required>
             <option value="CSE Core">CSE Core</option>
             <option value="CSE+Spec">CSE+Spec</option>
@@ -27,25 +33,35 @@
             <option value="Mechanical">Mechanical</option>
             <option value="Civil">Civil</option>
         </select>
+        </div>
 
-        <label for="start_date">Start Date:</label>
-        <input type="date" name="start_date" required>
+        <div class="sd">
+        <label class="hidden" for="start_date"></label>
+        <input type="date" name="start_date" placeholder="Start" required>
+        </div>
 
+        <div class="st">
         <label for="start_time">Start Time:</label>
         <input type="time" name="start_time" required>
+        </div>
 
+        <div class="ed">
         <label for="end_date">End Date:</label>
         <input type="date" name="end_date" required>
+        </div>
 
+        <div class="et">
         <label for="end_time">End Time:</label>
         <input type="time" name="end_time" required>
+        </div>
 
-        <button type="submit">Create Session</button>
+        <button class="submit_button_sh" type="submit">Create Session</button>
     </form>
 </div>
 
 <!-- Display My Sessions -->
-<div>
+<div class="my-sessions-background"></div>
+<div class="my-sessions-container">
     <h3>My Sessions</h3>
     <ul>
         {% for session in my_sessions %}
@@ -53,7 +69,7 @@
             {{ session.title }} - {{ session.purpose }} - {{ session.branch }}
             <form method="POST" action="{% url 'delete_session' session.id %}">
                 {% csrf_token %}
-                <button type="submit">Delete</button>
+                <button class="delete_button_sh"type="submit">Delete</button>
             </form>
         </li>
         {% empty %}
@@ -63,27 +79,25 @@
 </div>
 
 <!-- Display All Sessions -->
-<div>
+<div class="all-sessions-bg"></div>
+<div class="all-sessions-container">
     <h3>All Sessions</h3>
     <ul>
         {% for session in all_sessions %}
         <li>
             {{ session.title }} - {{ session.purpose }} - {{ session.branch }}
-            
-            <!-- Form to message the session creator -->
-            {% if request.user != session.user %}
             <form method="POST" action="{% url 'send_message_to_user' session.user.id %}">
                 {% csrf_token %}
+                <div class="message_tb">
                 <input type="text" name="message" placeholder="Type your message..." required>
-                <button type="submit">Message Creator</button>
+                <button class="mc"type="submit">Message Creator</button>
+            </div>
             </form>
-            {% else %}
-            <p>You cannot message yourself (session creator).</p>
-            {% endif %}
         </li>
         {% empty %}
         <li>No sessions available.</li>
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}

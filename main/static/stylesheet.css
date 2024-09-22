@@ -725,16 +725,13 @@ input[type="text"]:focus {
     z-index: -1;
 }
 
-.req-background {
-    position: fixed; /* Cover entire viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+.req-background{
+    position: absolute;
+    width: 100%; /* Set a width */
+    height: 100%; /* Set a height */
     background-image: url(./assets/login_bg.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-size: cover; /* Cover the entire div */
+    background-position: center; /* Center the image */
     z-index: -1;
 }
 
@@ -1006,4 +1003,360 @@ input[type="text"]:focus {
     src: url(./assets/Monarque/Monarque-Bold.otf);
     font-style: italic;
     margin-bottom: 10px;
+}
+
+
+.session-hub-background{
+    position: absolute;
+    width: 100%; /* Set a width */
+    height: 100%; /* Set a height */
+    background-image: url(./assets/login_bg.jpg);
+    background-size: cover; /* Cover the entire div */
+    background-position: center; /* Center the image */
+    z-index: -1;
+}
+
+
+
+.session-hub-container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 700px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    top:150px;
+    left:450px;
+}
+
+.my-sessions-background{
+    position: absolute;
+    width: 100%; /* Set a width */
+    height: 100%; /* Set a height */
+    background-image: url(./assets/login_bg.jpg);
+    background-size: cover; /* Cover the entire div */
+    background-position: center; /* Center the image */
+    z-index: -1;
+}
+
+
+
+.my-sessions-container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 700px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    top:850px;
+    left:450px;
+}
+
+.all-sessions-bg{
+    position: absolute;
+    width: 100%; /* Set a width */
+    background-image: url(./assets/login_bg.jpg);
+    background-size: cover; /* Cover the entire div */
+    background-position:center; /* Center the image */
+    height:200%;
+    z-index: -1;
+}
+
+
+
+.all-sessions-container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 700px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    top:1020px;
+    left:450px;
+}
+
+.SessionHub{
+    position: absolute;
+    top:100px;
+    left:700px;
+    color: white;
+    font-family: "Monarque";
+    src: url(./assets/Monarque/Monarque-SemiBoldItalic.otf);
+    font-style: italic;
+}
+
+.sb-t input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+}
+
+.sb-t input[type="text"]::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state for input */
+.sb-t input[type="text"]:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Add animation effect */
+.sb-t input[type="text"]:hover {
+    background-color: #444; /* Background change on hover */
+    border: 2px solid #5f44b0; /* Border color on hover */
+}
+
+.hidden-label {
+    display: none; /* Hide the label */
+}
+
+.sb-p select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #888;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+}
+
+.sb-p select.placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+.sb-p select:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+.sb-p select:hover {
+    background-color: #444; /* Background change on hover */
+    border: 2px solid #5f44b0; /* Border color on hover */
+}
+
+/* For a better UX, you can also add styles for the first option */
+.sb-p select option {
+    color: #888; /* Placeholder color for first option */
+}
+
+.sb-p select option:not(:first-child) {
+    color: white; /* Normal option color */
+}
+
+
+.hidden-label {
+    display: none; /* Hide the label */
+}
+
+.branch select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #888;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+}
+
+.branch select.placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+.branch select:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+.branch select:hover {
+    background-color: #444; /* Background change on hover */
+    border: 2px solid #5f44b0; /* Border color on hover */
+}
+
+/* For a better UX, you can also add styles for the first option */
+.branch select option {
+    color: #888; /* Placeholder color for first option */
+}
+
+.branch select option:not(:first-child) {
+    color: white; /* Normal option color */
+}
+
+
+
+.sd {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.sd input {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.st {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.st input {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ed {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.ed input {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.et {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.et input {
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit_button_sh {
+    margin-top: 0px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #5f44b0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease ;
+}
+
+.submit_button_sh:hover {
+    background-color: #00013f;
+}
+
+.delete_button_sh {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #5f44b0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease ;
+}
+
+.delete_button_sh:hover {
+    background-color: #00013f;
+}
+
+.message_tb input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+}
+
+.message_tb input[type="text"]::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state for input */
+.message_tb input[type="text"]:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Add animation effect */
+.message_tb input[type="text"]:hover {
+    background-color: #444; /* Background change on hover */
+    border: 2px solid #5f44b0; /* Border color on hover */
+}
+
+.mc {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #5f44b0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease ;
+}
+
+.mc:hover {
+    background-color: #00013f;
 }
