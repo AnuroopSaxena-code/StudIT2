@@ -8,6 +8,7 @@ class Student(models.Model):
     registration_no = models.CharField(max_length=100)
     enrollment_year = models.CharField(max_length=10)
     branch = models.CharField(max_length=100)
+    points = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username

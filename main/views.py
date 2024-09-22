@@ -198,6 +198,12 @@ def toggle_task_complete(request):
             task = Task.objects.get(id=task_id)
             task.is_complete = is_complete
             task.save()
+
+            if is_complete:
+                student = request.user.student
+                student.points += 10  # Example: Award 10 points for completing a task
+                student.save()
+
             return JsonResponse({'status': 'success'})
         except Task.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Task not found'}, status=404)
@@ -245,6 +251,10 @@ def add_task(request):
             end_time=end_time,
             user=request.user  # Assuming you want to associate it with the logged-in user
         )
+
+        student = request.user.student
+        student.points += 5  # Example: Award 5 points for creating a task
+        student.save()
 
         # Return a JSON response with the new task's ID and details
         return JsonResponse({
@@ -339,6 +349,11 @@ def session_hub_view(request):
             end_date=end_date,
             end_time=end_time,
         )
+
+        student = request.user.student
+        student.points += 15  # Example: Award 15 points for creating a session
+        student.save()
+
         return redirect('session_hub')
     
     my_sessions = Session.objects.filter(user=request.user)
@@ -374,3 +389,9 @@ def profile_view(request):
         'form': form,
     }
     return render(request, 'profile.html', context)
+
+
+@login_required
+def leaderboard_view(request):
+    students = Student.objects.order_by('-points')  # Sort by points in descending order
+    return render(request, 'leaderboard.html', {'students': students})

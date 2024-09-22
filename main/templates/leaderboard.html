@@ -2,5 +2,22 @@
 
 {% block content %}
     <h2>Leaderboard</h2>
-    <p>This is the leaderboard page content.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ forloop.counter }}</td> <!-- Rank -->
+                <td>{{ student.user.username }}</td>
+                <td>{{ student.points }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
