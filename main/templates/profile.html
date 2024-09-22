@@ -5,15 +5,17 @@
 <!-- profile.html -->
 <h2>{{ request.user.username }}'s Profile</h2>
 
+<div class="pfp-bg"></div>
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Update Profile</button>
 </form>
 
-<div>
+<div class="pfp-bg"></div>
+    <div class="pfp-container">
     <h4>Registration Number: {{ profile.registration_number }}</h4>
     <h4>Branch: {{ profile.branch }}</h4>
     <h4>Bio: {{ profile.bio }}</h4>
-</div>
+    </div>
 {% endblock %}
