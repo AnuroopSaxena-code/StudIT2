@@ -725,13 +725,16 @@ input[type="text"]:focus {
     z-index: -1;
 }
 
-.req-background{
-    position: absolute;
-    width: 100%; /* Set a width */
-    height: 100%; /* Set a height */
+.req-background {
+    position: fixed; /* Cover entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-image: url(./assets/login_bg.jpg);
-    background-size: cover; /* Cover the entire div */
-    background-position: center; /* Center the image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     z-index: -1;
 }
 
