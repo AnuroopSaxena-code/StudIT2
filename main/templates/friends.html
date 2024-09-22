@@ -1,49 +1,65 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Send Friend Request</h2>
-<form method="POST" action="{% url 'send_friend_request' %}">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Enter username" required>
-    <button type="submit">Send Request</button>
-</form>
+<h2 class="Send_req">Add a friend</h2>
+<div class="req-background"></div>
+<div class="req-container">
+    <form method="POST" action="{% url 'send_friend_request' %}">
+        {% csrf_token %}
+        <div class="req_box">
+            <input class="username_place" type="text" name="username" placeholder="Enter username" required>
+            <button class="send_req_but" type="submit">Send Request</button>
+        </div> 
+    </form>
+</div>
 
-<h2>Pending Friend Requests</h2>
-<ul>
-    {% for request in sent_requests %}
-        <li>
-            {{ request.to_user.username }} - Pending
-        </li>
-    {% empty %}
-        <li>No pending requests.</li>
-    {% endfor %}
-</ul>
+<div class="pfr-bg"></div>
+<div class="pfr-container">
+<h2 class="pfr">Pending Friend Requests</h2>
+    <ul>
+        {% for request in sent_requests %}
+            <li>
+                {{ request.to_user.username }} - Pending
+            </li>
+        {% empty %}
+            <li>No pending requests.</li>
+        {% endfor %}
+    </ul>
+</div>
 
-<h2>Received Friend Requests</h2>
-<ul>
-    {% for request in received_requests %}
-        <li>
-            {{ request.from_user.username }}
-            <form action="{% url 'accept_friend_request' request.id %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Accept</button>
-            </form>
-            <form action="{% url 'decline_friend_request' request.id %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Decline</button>
-            </form>
-        </li>
-    {% empty %}
-        <li>No received requests.</li>
-    {% endfor %}
-</ul>
 
-<h2>Your Friends</h2>
-<ul>
-    {% for friend in friends %}
-        <li>{{ friend.user.username }}</li>
-    {% empty %}
-        <li>No friends yet.</li>
-    {% endfor %}
-</ul>
+<div class="rfr-container">
+    <h2 class="rfr">Received Friend Requests</h2>
+    <ul>
+        {% for request in received_requests %}
+            <li class="disp_name">
+                {{ request.from_user.username }}
+                <div class="acrj">
+                    <form action="{% url 'accept_friend_request' request.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="fr_ac" type="submit">Accept</button>
+                    </form>
+                    <form action="{% url 'decline_friend_request' request.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button class="fr_dc" type="submit">Decline</button>
+                    </form>
+                </div>
+            </li>
+        {% empty %}
+            <li>No received requests.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+<div class="yf-container">
+    <h2 class="yf">Your Friends</h2>
+    <ul>
+        {% for friend in friends %}
+            <li>{{ friend.user.username }}</li>
+        {% empty %}
+            <li>No friends yet.</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

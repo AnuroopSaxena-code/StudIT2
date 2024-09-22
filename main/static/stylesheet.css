@@ -417,7 +417,7 @@ body{
 .User_welcome {
     position: absolute;
     top: 20px;
-    left: 590px;
+    left: 35%;
     font-family: "Monarque";
     src: url(./assets/Monarque/Monarque-Italic.otf);
     font-style: italic;
@@ -723,4 +723,284 @@ input[type="text"]:focus {
     background-size: cover; /* Cover the entire div */
     background-position: center; /* Center the image */
     z-index: -1;
+}
+
+.req-background{
+    position: absolute;
+    width: 100%; /* Set a width */
+    height: 100%; /* Set a height */
+    background-image: url(./assets/login_bg.jpg);
+    background-size: cover; /* Cover the entire div */
+    background-position: center; /* Center the image */
+    z-index: -1;
+}
+
+
+
+.req-container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 700px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    top:150px;
+    left:450px;
+}
+
+/* Glow effect on hover */
+.req-container:hover {
+    box-shadow: 0px 0px 15px 5px rgba(95, 68, 176, 0.7), 0px 0px 30px 10px rgba(0, 1, 63, 0.5);
+    border-color: rgba(95, 68, 176, 0.7);
+}
+
+
+
+
+.send_req_but {
+    margin-top: 0px;
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #5f44b0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease ;
+}
+
+.send_req_but:hover {
+    background-color: #00013f;
+}
+
+
+
+.req_box{
+    display: flex;
+    align-items: center;  /* Vertically centers the elements */
+    gap: 10px;
+}
+
+
+.Send_req{
+    position: absolute;
+    font-family: "Monarque";
+    src: url(./assets/Monarque/Monarque-Bold.otf);
+    font-style: italic;
+    color: #ffffff;
+    top:100px;
+    left:50%;
+    z-index: 2;
+}
+
+.username_place {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background: #333; /* Dark grey background */
+    color: #fff;
+    font-size: 14px;
+    transition: border 0.3s ease, background-color 0.3s ease; /* Smooth transition for border and background */
+}
+
+.username_place::placeholder {
+    color: #888; /* Placeholder text color */
+}
+
+/* Focus state for input */
+.username_place:focus {
+    outline: none; /* Remove default outline */
+    border: 2px solid #5f44b0; /* Border color on focus */
+    background-color: #444; /* Slightly lighter background on focus */
+}
+
+/* Add animation effect */
+.username_place:hover {
+    background-color: #444; /* Background change on hover */
+    border: 2px solid #5f44b0; /* Border color on hover */
+}
+
+
+.pfr-bg {
+    position: absolute;
+    background-color: rgba(0,0,0,0.69);
+    height: 100%;
+    width:100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: 0.9;
+}
+
+/* Centered login form */
+.pfr-container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 350px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    top:400px;
+    left:100px;
+    font-family: "Helvetica";
+    src: url(./assets/helvetica-255/helvetica-light-587ebe5a59211.ttf);
+}
+
+/* Glow effect on hover */
+.pfr-container:hover {
+    box-shadow: 0px 0px 15px 5px rgba(95, 68, 176, 0.7), 0px 0px 30px 10px rgba(0, 1, 63, 0.5);
+    border-color: rgba(95, 68, 176, 0.7);
+}
+
+
+/* Centered login form */
+.rfr-container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 350px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    top:400px;
+    left:600px;
+    font-family: "Helvetica";
+    src: url(./assets/helvetica-255/helvetica-light-587ebe5a59211.ttf);
+}
+
+/* Glow effect on hover */
+.rfr-container:hover {
+    box-shadow: 0px 0px 15px 5px rgba(95, 68, 176, 0.7), 0px 0px 30px 10px rgba(0, 1, 63, 0.5);
+    border-color: rgba(95, 68, 176, 0.7);
+}
+
+
+/* Centered login form */
+.yf-container {
+    background: rgba(0, 0, 0, 0.7);  /* Dark translucent background */
+    border-radius: 10px;
+    padding: 40px;
+    max-width: 350px;
+    width: 100%;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border: 1px solid #888888;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    position: absolute;
+    top:400px;
+    right:100px;
+    font-family: "Helvetica";
+    src: url(./assets/helvetica-255/helvetica-light-587ebe5a59211.ttf);
+}
+
+/* Glow effect on hover */
+.yf-container:hover {
+    box-shadow: 0px 0px 15px 5px rgba(95, 68, 176, 0.7), 0px 0px 30px 10px rgba(0, 1, 63, 0.5);
+    border-color: rgba(95, 68, 176, 0.7);
+}
+
+.pfr-container ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.rfr-container ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.yf-container ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.rfr-container li {
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 0px; /* Space between list items */
+}
+
+.acrj {
+    display: flex; /* Ensure buttons are also aligned properly */
+    margin-left: auto; /* Push buttons to the right */
+    margin-top: 10px;
+}
+
+.fr_ac{
+    margin-left: 10px; /* Space between buttons */
+    padding: 5px 5px; /* Adjust size */
+    background-color: #007d21;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.fr_ac:hover{
+    background-color: #005e0c; /* Hover effect */
+}
+
+.fr_dc {
+    margin-left: 10px; /* Space between buttons */
+    padding: 5px 5px; /* Adjust size */
+    background-color: #5f44b0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.fr_dc:hover {
+    background-color: #3f0008; /* Hover effect */
+}
+
+.disp_name{
+    font-family: "Helvetica";
+    src: url(./assets/helvetica-255/helvetica-light-587ebe5a59211.ttf);
+    font-size: 18px;
+}
+
+.pfr{
+    font-family: "Monarque";
+    src: url(./assets/Monarque/Monarque-Bold.otf);
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.rfr{
+    font-family: "Monarque";
+    src: url(./assets/Monarque/Monarque-Bold.otf);
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.yf{
+    font-family: "Monarque";
+    src: url(./assets/Monarque/Monarque-Bold.otf);
+    font-style: italic;
+    margin-bottom: 10px;
 }
