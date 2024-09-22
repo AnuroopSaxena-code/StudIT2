@@ -15,6 +15,7 @@
                 {% if user.is_authenticated %}
                     <li class="User_welcome">Welcome, {{ user.username }}</li>
                     <div class="Navbar">
+                        <li><a class="Profile" href="{% url 'profile' %}">Profile</a></li>
                         <li><a class="Dashboard" href="{% url 'dashboard' %}">Dashboard</a></li>
                         <li><a class="Message_View" href="{% url 'message_view' %}">Messages</a></li>
                         <li><a class="Friends" href="{% url 'friends' %}">Friends</a></li>

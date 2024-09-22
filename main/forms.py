@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Student, Task
+from .models import Student, Task, Profile
 
 class SignUpForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -30,3 +30,11 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['task_name', 'start_date', 'start_time', 'end_date', 'end_time']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['registration_number', 'branch', 'enrollment_year', 'bio']  # Only include fields in Profile model
+        widgets = {
+            'bio': forms.Textarea(attrs={'rows': 3}),
+        }

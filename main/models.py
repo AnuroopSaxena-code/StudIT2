@@ -29,9 +29,11 @@ class Profile(models.Model):
     friends = models.ManyToManyField('self', symmetrical=False, related_name='friend_profiles')
     registration_number = models.CharField(max_length=9)
     branch = models.CharField(max_length=100)
+    bio = models.TextField(blank=True, null=True)
+    enrollment_year = models.IntegerField()
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user.username} Profile'
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')

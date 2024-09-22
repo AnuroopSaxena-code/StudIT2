@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import home, login_view, signup_view, dashboard_view, logout_view, leaderboard_view, session_hub
 from .views import send_message, message_view, send_message_to_user, toggle_task_complete, edit_task, delete_task, todo_list_view, add_task
-from .views import friends_view, send_friend_request, accept_friend_request, decline_friend_request, session_hub_view, delete_session
+from .views import friends_view, send_friend_request, accept_friend_request, decline_friend_request, session_hub_view, delete_session, profile_view
 
 urlpatterns = [
     path('', home, name='home'),
@@ -26,5 +26,6 @@ urlpatterns = [
     path('decline_request/<int:request_id>/', decline_friend_request, name='decline_friend_request'),
     path('session-hub/', session_hub, name='session_hub'),
     path('delete_session/<int:session_id>/', delete_session, name='delete_session'),
+    path('profile/', profile_view, name='profile'),
 
 ]

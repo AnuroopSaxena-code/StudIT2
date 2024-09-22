@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import SignUpForm,TaskForm
+from .forms import SignUpForm,TaskForm, ProfileForm
 from .models import Student, Session, Message, Task, Profile, FriendRequest
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
@@ -357,3 +357,21 @@ def delete_session(request, session_id):
     session = get_object_or_404(Session, id=session_id, user=request.user)
     session.delete()
     return redirect('session_hub')
+
+
+@login_required
+def profile_view(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # redirect to the same page after updating
+    else:
+        form = ProfileForm(instance=profile)
+
+    context = {
+        'profile': profile,
+        'form': form,
+    }
+    return render(request, 'profile.html', context)

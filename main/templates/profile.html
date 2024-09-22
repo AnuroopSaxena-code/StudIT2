@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- profile.html -->
+<h2>{{ request.user.username }}'s Profile</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Profile</button>
+</form>
+
+<div>
+    <h4>Registration Number: {{ profile.registration_number }}</h4>
+    <h4>Branch: {{ profile.branch }}</h4>
+    <h4>Enrollment Year: {{ profile.enrollment_year }}</h4>
+    <h4>Bio: {{ profile.bio }}</h4>
+</div>
+{% endblock %}
