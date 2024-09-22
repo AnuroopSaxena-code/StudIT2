@@ -15,7 +15,6 @@ class SignUpForm(forms.ModelForm):
         ('Biotechnology', 'Biotechnology'),
     ]
     branch = forms.ChoiceField(choices=branch_choices, required=True)
-    enrollment_year = forms.CharField(max_length=10, required=True)
 
     class Meta:
         model = User
@@ -34,7 +33,7 @@ class TaskForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['registration_number', 'branch', 'enrollment_year', 'bio']  # Only include fields in Profile model
+        fields = ['registration_number', 'branch', 'bio']  # Only include fields in Profile model
         widgets = {
             'bio': forms.Textarea(attrs={'rows': 3}),
         }

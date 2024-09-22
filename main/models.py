@@ -30,7 +30,6 @@ class Profile(models.Model):
     registration_number = models.CharField(max_length=9)
     branch = models.CharField(max_length=100)
     bio = models.TextField(blank=True, null=True)
-    enrollment_year = models.IntegerField()
 
     def __str__(self):
         return f'{self.user.username} Profile'

@@ -48,7 +48,6 @@ def signup_view(request):
                 user=user,
                 registration_no=form.cleaned_data['registration_no'],
                 branch=form.cleaned_data['branch'],
-                enrollment_year=form.cleaned_data['enrollment_year']  # If you're collecting this
             )
             student.save()
             return redirect('login')

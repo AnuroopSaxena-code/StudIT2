@@ -37,10 +37,6 @@
                     {{ form.branch}}
                 </div>
                 
-                <div class="enrollment_year">
-                    <label class="hidden">{{ form.enrollment_year.label }}</label> 
-                    <input type="number" name="enrollment_year" placeholder="Enrollment Year" value="{{ form.enrollment_year.value|default:'' }}" required>
-                </div>
                 <button class="signup-button" type="submit">Sign Up</button>
             </form>
             <a class="Login-button" href="{% url 'login' %}">Login</a>
